@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsInt, IsDate, IsString} from 'class-validator';
 
 
-export class CreateVehicleDto {
+export class UpdateVehicleDto {
 
   @IsString()
   @IsNotEmpty()
@@ -11,9 +11,9 @@ export class CreateVehicleDto {
   @IsNotEmpty()
   model: Date;
 
-  @IsString()
+  @IsInt()
   @IsNotEmpty()
-  year: string;
+  year: number;
 
   @IsInt()
   @IsNotEmpty()
@@ -23,3 +23,5 @@ export class CreateVehicleDto {
   @IsNotEmpty()
   licensePlate: string;
 }
+
+

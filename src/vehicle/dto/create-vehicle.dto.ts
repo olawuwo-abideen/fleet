@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsInt, IsDate, IsString} from 'class-validator';
+import { IsNotEmpty, IsInt, IsString} from 'class-validator';
 
 
 export class CreateVehicleDto {
@@ -7,19 +7,19 @@ export class CreateVehicleDto {
   @IsNotEmpty()
   make: string;
 
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
-  model: Date;
+  model: string;
+
+  @IsInt()
+  @IsNotEmpty()
+  year: number;
 
   @IsString()
   @IsNotEmpty()
-  year: string;
-
-  @IsInt()
-  @IsNotEmpty()
   vin: string;
 
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
   licensePlate: string;
 }

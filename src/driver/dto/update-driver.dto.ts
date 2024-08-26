@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsInt, IsString} from 'class-validator';
 
 
-export class CreateDriverDto {
+export class UpdateDriverDto {
 
   @IsString()
   @IsNotEmpty()
