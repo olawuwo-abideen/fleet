@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
 
 
-export class CreateTripDto {
+export class UpdateTripDto {
 
   @IsString()
   @IsNotEmpty()
@@ -24,4 +24,3 @@ export class CreateTripDto {
   @IsNotEmpty()
   endTime: string;
 }
-
