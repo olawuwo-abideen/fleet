@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
 
 
-export class CreateLocationDto {
+export class UpdateFuelDto {
 
   @IsString()
   @IsNotEmpty()
@@ -9,15 +9,25 @@ export class CreateLocationDto {
 
   @IsString()
   @IsNotEmpty()
-  timestamp: string;
+  date: string;
+
+  @IsString()
+  @IsNotEmpty()
+  quantity: string;
 
   @IsInt()
   @IsNotEmpty()
-  latitude: number;
-
-  @IsInt()
-  @IsNotEmpty()
-  longitude: number;
+  cost: number;
 
 }
 
+
+
+
+
+
+
+
+
+
+  

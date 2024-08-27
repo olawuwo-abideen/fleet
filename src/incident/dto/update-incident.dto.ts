@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
 
 
-export class CreateLocationDto {
+export class UpdateIncidentDto {
 
   @IsString()
   @IsNotEmpty()
@@ -9,15 +9,16 @@ export class CreateLocationDto {
 
   @IsString()
   @IsNotEmpty()
-  timestamp: string;
+  driverId: string;
 
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  latitude: number;
+  date: string;
 
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  longitude: number;
+  description: string;
 
 }
 
+  

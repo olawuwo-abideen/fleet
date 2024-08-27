@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
 
 
-export class CreateLocationDto {
+export class UpdateLocationDto {
 
   @IsString()
   @IsNotEmpty()

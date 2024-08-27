@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
 
 
-export class CreateTripDto {
+export class CreateMaintenanceDto {
 
   @IsString()
   @IsNotEmpty()
@@ -9,36 +9,15 @@ export class CreateTripDto {
 
   @IsString()
   @IsNotEmpty()
-  driverId: string;
+  maintenanceDate: string;
 
   @IsString()
   @IsNotEmpty()
-  routeId: string;
+  description: string;
 
-  @IsString()
+  @IsInt()
   @IsNotEmpty()
-  startTime: string;
+  cost: number;
 
-
-  @IsString()
-  @IsNotEmpty()
-  endTime: string;
 }
 
-
-
-// maintenance.dto.ts
-export class CreateMaintenanceDto {
-    vehicleId: string;
-    maintenanceDate: Date;
-    description: string;
-    cost: number;
-  }
-  
-  export class UpdateMaintenanceDto {
-    vehicleId?: string;
-    maintenanceDate?: Date;
-    description?: string;
-    cost?: number;
-  }
-  
