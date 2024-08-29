@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
+import { IsNotEmpty, IsInt, IsString} from 'class-validator';
 
 
 export class UpdateFuelDto {

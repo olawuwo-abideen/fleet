@@ -29,12 +29,3 @@ export class CreateFuelDto {
 
 
 
-
-  
-  export class UpdateFuelDto {
-    vehicleId?: string;
-    date?: Date;
-    quantity?: number;
-    cost?: number;
-  }
-  
