@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { RouteController } from './route.controller';
 
-@Module({})
+@Module({
+  controllers: [RouteController]
+})
 export class RouteModule {}

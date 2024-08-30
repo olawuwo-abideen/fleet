@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { IncidentController } from './incident.controller';
 
-@Module({})
+@Module({
+  controllers: [IncidentController]
+})
 export class IncidentModule {}
