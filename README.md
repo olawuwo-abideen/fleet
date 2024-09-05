@@ -1,73 +1,84 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+A fleetmanagement app 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+- **GET /vehicles**: Retrieve a list of all vehicles.
+- **GET /vehicles/{id}**: Retrieve details of a specific vehicle.
+- **POST /vehicles**: Add a new vehicle to the fleet.
+- **PUT /vehicles/{id}**: Update information for a specific vehicle.
+- **DELETE /vehicles/{id}**: Remove a vehicle from the fleet.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+- **GET /drivers**: Retrieve a list of all drivers.
+- **GET /drivers/{id}**: Retrieve details of a specific driver.
+- **POST /drivers**: Add a new driver to the fleet.
+- **PUT /drivers/{id}**: Update information for a specific driver.
+- **DELETE /drivers/{id}**: Remove a driver from the fleet.
 
-```bash
-$ npm install
-```
 
-## Running the app
+- **GET /routes**: Retrieve a list of all routes.
+- **GET /routes/{id}**: Retrieve details of a specific route.
+- **POST /routes**: Create a new route.
+- **PUT /routes/{id}**: Update details of a specific route.
+- **DELETE /routes/{id}**: Remove a route from the system.
 
-```bash
-# development
-$ npm run start
+### 4. **Trip Management**
+- **GET /trips**: Retrieve a list of all trips.
+- **GET /trips/{id}**: Retrieve details of a specific trip.
+- **POST /trips**: Start a new trip.
+- **PUT /trips/{id}**: Update details of a specific trip.
+- **DELETE /trips/{id}**: Cancel a trip.
 
-# watch mode
-$ npm run start:dev
 
-# production mode
-$ npm run start:prod
-```
+- **GET /maintenance**: Retrieve a list of all maintenance records.
+- **GET /maintenance/{id}**: Retrieve details of a specific maintenance record.
+- **POST /maintenance**: Add a new maintenance record.
+- **PUT /maintenance/{id}**: Update details of a specific maintenance record.
+- **DELETE /maintenance/{id}**: Remove a maintenance record from the system.
 
-## Test
 
-```bash
-# unit tests
-$ npm run test
+- **GET /fuel**: Retrieve a list of all fuel records.
+- **GET /fuel/{id}**: Retrieve details of a specific fuel record.
+- **POST /fuel**: Add a new fuel record.
+- **PUT /fuel/{id}**: Update details of a specific fuel record.
+- **DELETE /fuel/{id}**: Remove a fuel record from the system.
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+- **GET /incidents**: Retrieve a list of all incidents.
+- **GET /incidents/{id}**: Retrieve details of a specific incident.
+- **POST /incidents**: Report a new incident.
+- **PUT /incidents/{id}**: Update details of a specific incident.
+- **DELETE /incidents/{id}**: Remove an incident from the system.
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- **GET /locations**: Retrieve a list of all location updates.
+- **GET /locations/{vehicleId}**: Retrieve the current location of a specific vehicle.
+- **POST /locations**: Add a new location update.
 
-## Stay in touch
+- **GET /reports/vehicle-usage**: Retrieve a report on vehicle usage.
+- **GET /reports/driver-performance**: Retrieve a report on driver performance.
+- **GET /reports/fuel-consumption**: Retrieve a report on fuel consumption.
+- **GET /reports/maintenance-costs**: Retrieve a report on maintenance costs.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+- **GET /users**: Retrieve a list of all users.
+- **GET /users/{id}**: Retrieve details of a specific user.
+- **POST /users**: Add a new user.
+- **PUT /users/{id}**: Update information for a specific user.
+- **DELETE /users/{id}**: Remove a user from the system.
+- **GET /roles**: Retrieve a list of all roles.
+- **POST /roles**: Add a new role.
+- **PUT /roles/{id}**: Update details of a specific role.
+- **DELETE /roles/{id}**: Remove a role from the system.
 
-Nest is [MIT licensed](LICENSE).
+
+- **POST /auth/login**: User login.
+- **POST /auth/logout**: User logout.
+- **POST /auth/refresh-token**: Refresh authentication token.
+
+
+- **GET /notifications**: Retrieve a list of all notifications.
+- **POST /notifications**: Send a new notification.
+- **PUT /notifications/{id}**: Update a specific notification.
+- **DELETE /notifications/{id}**: Delete a specific notification.
+
