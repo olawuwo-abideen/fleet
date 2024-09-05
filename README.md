@@ -37,7 +37,6 @@ The following API endpoints are available:
 
 - BaseUrl https://localhost:3000/
 
-A fleet management software typically includes a variety of endpoints to manage vehicles, drivers, routes, maintenance, and other related activities. Here’s a comprehensive list of possible endpoints for such software:
 
 **Vehicle Management**
 
