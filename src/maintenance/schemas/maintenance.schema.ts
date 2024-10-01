@@ -1,8 +1,23 @@
-import { Schema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const MaintenanceSchema = new Schema({
-  vehicleId: { type: Schema.Types.ObjectId, ref: 'Vehicle', required: true },
-  maintenanceDate: { type: Date, required: true },
-  description: { type: String, required: true },
-  cost: { type: Number, required: true },
-});
+@Schema({
+  timestamps: true,
+})
+export class Maintenance extends  Document{
+  
+  @Prop()
+  vehicleId: string;
+  
+  @Prop()
+  maintenanceDate: Date;
+
+  @Prop()
+  description: string;
+
+  @Prop()
+  cost: number;
+
+}
+
+export const MaintenanceSchema = SchemaFactory.createForClass(Maintenance);

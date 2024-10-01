@@ -1,15 +1,27 @@
-import { Schema} from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+ import { Document } from 'mongoose';
 
-import {SchemaFactory } from '@nestjs/mongoose';
+@Schema({
+  timestamps: true,
+})
+export class Vehicle extends  Document{
+  
+  @Prop()
+  vehicleMaker: string;
+  
+  @Prop()
+  Model: number;
+
+  @Prop()
+  year: Date;
+
+  @Prop()
+  vin: number;
+
+  @Prop()
+  licensePlate: string;
 
 
-export const VehicleData = new Schema({
-  make: { type: String, required: true },
-  model: { type: String, required: true },
-  year: { type: Number, required: true },
-  vin: { type: String, required: true, unique: true },
-  licensePlate: { type: String, required: true, unique: true },
-});
+}
 
-
-export const sensorDataSchema = SchemaFactory.createForClass(VehicleData);
+export const VehicleSchema = SchemaFactory.createForClass(Vehicle);

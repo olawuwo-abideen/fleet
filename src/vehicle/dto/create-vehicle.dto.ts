@@ -5,11 +5,11 @@ export class CreateVehicleDto {
 
   @IsString()
   @IsNotEmpty()
-  make: string;
+  vehicleMaker: string;
 
   @IsString()
   @IsNotEmpty()
-  model: string;
+  Model: string;
 
   @IsInt()
   @IsNotEmpty()

@@ -1,8 +1,27 @@
-import { Schema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+ import { Document } from 'mongoose';
 
-export const DriverSchema = new Schema({
-  name: { type: String, required: true },
-  licenseNumber: { type: String, required: true, unique: true },
-  phoneNumber: { type: String, required: true },
-  address: { type: String, required: true },
-});
+@Schema({
+  timestamps: true,
+})
+export class Driver extends  Document{
+  
+  @Prop()
+  firstName: string;
+  
+  @Prop()
+  lastName: string;
+
+  @Prop()
+  licenseNumber: string;
+
+  @Prop()
+  phoneNumber: number;
+
+  @Prop()
+  address: string;
+
+
+}
+
+export const DriverSchema = SchemaFactory.createForClass(Driver);

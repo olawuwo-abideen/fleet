@@ -1,9 +1,23 @@
-// fuel.schema.ts
-import { Schema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+ import { Document } from 'mongoose';
 
-export const FuelSchema = new Schema({
-  vehicleId: { type: Schema.Types.ObjectId, ref: 'Vehicle', required: true },
-  date: { type: Date, required: true },
-  quantity: { type: Number, required: true },
-  cost: { type: Number, required: true },
-});
+@Schema({
+  timestamps: true,
+})
+export class Fuel extends  Document{
+  
+  @Prop()
+  vehicleId: string;
+  
+  @Prop()
+  date: Date;
+
+  @Prop()
+  quantity: string;
+
+  @Prop()
+  cost: number;
+
+}
+
+export const FuelSchema = SchemaFactory.createForClass(Fuel);

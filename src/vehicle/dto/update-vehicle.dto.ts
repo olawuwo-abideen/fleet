@@ -5,7 +5,7 @@ export class UpdateVehicleDto {
 
   @IsString()
   @IsNotEmpty()
-  make: string;
+  vehicleMaker: string;
 
   @IsDate()
   @IsNotEmpty()

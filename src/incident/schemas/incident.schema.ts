@@ -1,8 +1,27 @@
-import { Schema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+ import { Document } from 'mongoose';
 
-export const IncidentSchema = new Schema({
-  vehicleId: { type: Schema.Types.ObjectId, ref: 'Vehicle', required: true },
-  driverId: { type: Schema.Types.ObjectId, ref: 'Driver', required: true },
-  date: { type: Date, required: true },
-  description: { type: String, required: true },
-});
+@Schema({
+  timestamps: true,
+})
+export class Incident extends  Document{
+  
+  @Prop()
+  vehicleId: string;
+  
+  @Prop()
+  driverId: string;
+
+  @Prop()
+  date: Date;
+
+  @Prop()
+  description: string;
+
+  @Prop()
+  address: string;
+
+
+}
+
+export const IncidentSchema = SchemaFactory.createForClass(Incident);
