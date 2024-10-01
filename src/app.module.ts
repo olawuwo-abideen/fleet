@@ -13,10 +13,33 @@ import { LocationModule } from './location/location.module';
 import { AnalyticsandreportModule } from './analyticsandreport/analyticsandreport.module';
 import { UserModule } from './user/user.module';
 import { NotificationModule } from './notification/notification.module';
+import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [AuthModule, VehicleModule, DriverModule, TripModule, RouteModule, MaintenanceModule, FuelModule, IncidentModule, LocationModule, AnalyticsandreportModule, UserModule, NotificationModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath:`.env.${process.env.NODE_ENV}`,
+      isGlobal:true,
+    }),
+    MongooseModule.forRoot(process.env.DB_URI),
+    AuthModule, 
+    VehicleModule, 
+    DriverModule, 
+    TripModule, 
+    RouteModule, 
+    MaintenanceModule, 
+    FuelModule, 
+    IncidentModule, 
+    LocationModule, 
+    AnalyticsandreportModule, 
+    UserModule, 
+    NotificationModule],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
+
+
+

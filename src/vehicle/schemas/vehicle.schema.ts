@@ -1,9 +1,15 @@
-import { Schema } from 'mongoose';
+import { Schema} from 'mongoose';
 
-export const VehicleSchema = new Schema({
+import {SchemaFactory } from '@nestjs/mongoose';
+
+
+export const VehicleData = new Schema({
   make: { type: String, required: true },
   model: { type: String, required: true },
   year: { type: Number, required: true },
   vin: { type: String, required: true, unique: true },
   licensePlate: { type: String, required: true, unique: true },
 });
+
+
+export const sensorDataSchema = SchemaFactory.createForClass(VehicleData);
