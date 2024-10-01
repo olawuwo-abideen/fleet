@@ -1,7 +1,6 @@
 import {
     IsEmail,
     IsNotEmpty,
-    IsOptional,
     IsString,
     MinLength,
   } from 'class-validator';
@@ -24,7 +23,8 @@ import {
     @MinLength(6)
     readonly password: string;
   
-
-    readonly role: string[];
+    @IsNotEmpty()
+    @IsString()
+    readonly role: string;
   }
   
