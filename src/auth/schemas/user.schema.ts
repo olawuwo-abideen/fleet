@@ -26,6 +26,7 @@ export class User extends  Document{
   
     })
     role: Role;
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

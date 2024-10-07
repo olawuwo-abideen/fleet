@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { VehicleModule } from './vehicle/vehicle.module';
-import { DriverModule } from './driver/driver.module';
 import { TripModule } from './trip/trip.module';
 import { RouteModule } from './route/route.module';
 import { MaintenanceModule } from './maintenance/maintenance.module';
@@ -15,17 +13,23 @@ import { UserModule } from './user/user.module';
 import { NotificationModule } from './notification/notification.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        ttl: 5 * 1000,
+        limit: 3,
+      },
+    ]),
     ConfigModule.forRoot({
-      envFilePath:`.env.${process.env.NODE_ENV}`,
+      envFilePath:`.env`,
       isGlobal:true,
     }),
     MongooseModule.forRoot(process.env.DB_URI),
     AuthModule, 
-    VehicleModule, 
-    DriverModule, 
     TripModule, 
     RouteModule, 
     MaintenanceModule, 
@@ -34,7 +38,8 @@ import { MongooseModule } from '@nestjs/mongoose';
     LocationModule, 
     AnalyticsandreportModule, 
     UserModule, 
-    NotificationModule],
+    NotificationModule, 
+    VehicleModule],
   controllers: [AppController],
   providers: [AppService],
 })
