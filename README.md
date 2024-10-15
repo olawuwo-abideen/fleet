@@ -1,6 +1,5 @@
 A fleetmanagement app 
 
-
 Installation
 
 - clone the repository
@@ -131,4 +130,3 @@ The following API endpoints are available:
 - **POST /notifications**: Send a new notification.
 - **PUT /notifications/{id}**: Update a specific notification.
 - **DELETE /notifications/{id}**: Delete a specific notification.
-

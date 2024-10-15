@@ -20,12 +20,3 @@ export class CreateFuelDto {
   cost: number;
 
 }
-
-
-
-
-
-
-
-
-

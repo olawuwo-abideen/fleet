@@ -1,31 +1,36 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { MongooseModule } from '@nestjs/mongoose';
-import { PassportModule } from '@nestjs/passport';
-import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
-import { UserSchema } from './schemas/user.schema';
+import { AuthController } from './auth.controller';
+import { MongooseModule } from '@nestjs/mongoose';
+import { User, UserSchema } from './schemas/user.schema';
+import {
+  RefreshToken,
+  RefreshTokenSchema,
+} from './schemas/refresh-token.schema';
+import { ResetToken, ResetTokenSchema } from './schemas/reset-token.schema';
+import { MailService } from './services/mail.service';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        return {
-          secret: config.get<string>('JWT_SECRET'),
-          signOptions: {
-            expiresIn: config.get<string | number>('JWT_EXPIRES'),
-          },
-        };
+    RolesModule,
+    MongooseModule.forFeature([
+      {
+        name: User.name,
+        schema: UserSchema,
       },
-    }),
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+      {
+        name: RefreshToken.name,
+        schema: RefreshTokenSchema,
+      },
+      {
+        name: ResetToken.name,
+        schema: ResetTokenSchema,
+      },
+    ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
-  exports: [JwtStrategy, PassportModule],
+  providers: [AuthService, MailService],
+  exports: [AuthService],
 })
 export class AuthModule {}
