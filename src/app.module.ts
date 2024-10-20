@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
 import { TripModule } from './trip/trip.module';
 import { RouteModule } from './route/route.module';
 import { MaintenanceModule } from './maintenance/maintenance.module';
@@ -15,7 +14,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { VehicleModule } from './vehicle/vehicle.module';
-
+import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './email/email.module';
 @Module({
   imports: [
     ThrottlerModule.forRoot([
@@ -25,11 +25,11 @@ import { VehicleModule } from './vehicle/vehicle.module';
       },
     ]),
     ConfigModule.forRoot({
+//  envFilePath: `.env.${process.env.NODE_ENV}`,
       envFilePath:`.env`,
       isGlobal:true,
     }),
     MongooseModule.forRoot(process.env.DB_URI),
-    AuthModule, 
     TripModule, 
     RouteModule, 
     MaintenanceModule, 
@@ -39,7 +39,11 @@ import { VehicleModule } from './vehicle/vehicle.module';
     AnalyticsandreportModule, 
     UserModule, 
     NotificationModule, 
-    VehicleModule],
+    VehicleModule, 
+    AuthModule, 
+    EmailModule
+   
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
@@ -47,4 +51,33 @@ export class AppModule {}
 
 
 
+// import { Module } from '@nestjs/common';
+// import { ConfigModule } from '@nestjs/config';
+// import { MongooseModule } from '@nestjs/mongoose';
+// import { AppController } from './app.controller';
+// import { AppService } from './app.service';
+// import { AuthModule } from './auth/auth.module';
+// import { ThrottlerModule } from '@nestjs/throttler';
+// import { EmailModule } from './email/email.module';
+
+// @Module({
+//   imports: [
+//     ThrottlerModule.forRoot([
+//       {
+//         ttl: 5 * 1000,
+//         limit: 3,
+//       },
+//     ]),
+//     ConfigModule.forRoot({
+//       envFilePath: `.env`,
+//       // envFilePath: `.env.${process.env.NODE_ENV}`,
+//       isGlobal: true,
+//     }),
+//     MongooseModule.forRoot(process.env.DB_URI),
+//     AuthModule,
+//   ],
+//   controllers: [AppController],
+//   providers: [AppService],
+// })
+// export class AppModule {}
 

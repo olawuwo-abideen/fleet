@@ -1,19 +1,34 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, SchemaTypes, Types } from 'mongoose';
+import { Document } from 'mongoose';
+import { Role } from '../enums/role.enum';
 
-@Schema()
+@Schema({
+  timestamps: true,
+})
 export class User extends Document {
-  @Prop({ required: true })
-  name: string;
+  @Prop()
+  firstName: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop()
+  lastName: string;
+
+  @Prop({ unique: [true, 'This email exist in the database'] })
   email: string;
 
-  @Prop({ required: true })
+  @Prop()
   password: string;
 
-  @Prop({ required: false, type: SchemaTypes.ObjectId })
-  roleId: Types.ObjectId;
+  @Prop({
+    type: [{ type: String, enum: Role }],
+  })
+
+  role: Role[];
+
+  @Prop()
+  phoneNumber:string
+
+  
+  resetToken: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

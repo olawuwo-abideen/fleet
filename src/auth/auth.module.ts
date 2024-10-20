@@ -1,36 +1,39 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
-import { User, UserSchema } from './schemas/user.schema';
-import {
-  RefreshToken,
-  RefreshTokenSchema,
-} from './schemas/refresh-token.schema';
+import { PassportModule } from '@nestjs/passport';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategy/jwt.strategy';
+import { EmailService } from 'src/email/email.service';
 import { ResetToken, ResetTokenSchema } from './schemas/reset-token.schema';
-import { MailService } from './services/mail.service';
-import { RolesModule } from './roles/roles.module';
+import { User, UserSchema  } from './schemas/user.schema';
+import { UserService } from 'src/user/user.service';
 
 @Module({
   imports: [
-    RolesModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return {
+          secret: config.get<string>('JWT_SECRET'),
+          signOptions: {
+            expiresIn: config.get<string | number>('JWT_EXPIRES'),
+          },
+        };
+      },
+    }),
     MongooseModule.forFeature([
-      {
-        name: User.name,
-        schema: UserSchema,
-      },
-      {
-        name: RefreshToken.name,
-        schema: RefreshTokenSchema,
-      },
-      {
-        name: ResetToken.name,
-        schema: ResetTokenSchema,
-      },
-    ]),
+      { name:User.name, schema: UserSchema },     
+      {name: ResetToken.name,schema: ResetTokenSchema,   
+    },
+  ])
   ],
   controllers: [AuthController],
-  providers: [AuthService, MailService],
-  exports: [AuthService],
+  providers: [AuthService, JwtStrategy, EmailService, UserService],
+  exports: [JwtStrategy, PassportModule, AuthService],
 })
 export class AuthModule {}
+
