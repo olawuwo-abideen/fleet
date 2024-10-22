@@ -10,8 +10,8 @@ export class EmailService {
     private readonly configService: ConfigService
   ) {
     this.transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
+      host: configService.get('MAIL_HOST'),
+      port: configService.get('PORT'),
       auth: {
         user: configService.get('MAIL_FROM_ADDRESS'),
         pass: configService.get('MAIL_PASSWORD'),
