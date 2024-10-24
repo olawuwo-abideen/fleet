@@ -1,11 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose from 'mongoose';
+import { User } from '../../auth/schemas/user.schema';
+
+
+export enum Type {
+  Petrol = 'Petrol',
+  Diesel = 'Diesel',
+}
 
 @Schema({
   timestamps: true,
 })
-export class Vehicle extends  Document{
-  
+export class Vehicle {
   @Prop()
   make: string;
   
@@ -13,7 +19,7 @@ export class Vehicle extends  Document{
   vehicleModel: string;
 
   @Prop()
-  year: string;
+  year: number;
 
   @Prop()
   licensePlate: number;
@@ -22,15 +28,19 @@ export class Vehicle extends  Document{
   vin: string;
   
   @Prop()
-  status: Date;
+  status: string;
 
   @Prop()
-  fuelType: string;
+  fuelType: Type;
 
+  @Prop()
+  images?: object[];
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  user: User;
 
 
 }
-
 
 
 export const VehicleSchema = SchemaFactory.createForClass(Vehicle);

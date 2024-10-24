@@ -1,36 +1,46 @@
-import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
-
+import {
+  IsEmpty,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
+import { User } from '../../auth/schemas/user.schema';
+import { Type } from '../schemas/vehicle.schema';
 
 export class UpdateVehicleDto {
 
+  @IsString()
+  @IsNotEmpty()
+  readonly make: string;
 
   @IsString()
   @IsNotEmpty()
-  make: string;
-
-  @IsString()
-  @IsNotEmpty()
-  vehicleModel: string;
+  readonly vehicleModel: string;
 
   @IsInt()
   @IsNotEmpty()
-  year: number;
+  readonly year: number;
 
   @IsString()
   @IsNotEmpty()
-  licensePlate: string;
+  readonly licensePlate: number;
 
   @IsString()
   @IsNotEmpty()
-  vin: string;
+  readonly vin: string;
 
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  status: string;
+  readonly status: string;
 
-  @IsInt()
+
   @IsNotEmpty()
-  fuelType: string;
+  @IsEnum(Type, { message: 'Please enter correct fuel type.' })
+  readonly fuelType: Type;
+
+  @IsEmpty({ message: 'You cannot pass user id' })
+  readonly user: User;
 
 }
-
