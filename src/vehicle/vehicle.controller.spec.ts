@@ -7,23 +7,20 @@ import { PassportModule } from '@nestjs/passport';
 import { User } from '../auth/schemas/user.schema';
 import {Type} from'./schemas/vehicle.schema'
 
-import { Category } from './schemas/book.schema';
-
-
-
-
 describe('VehicleController', () => {
   let vehicleService: VehicleService;
   let vehicleController: VehicleController;
 
-  const mockBook = {
+  const mockVehicle= {
     _id: '61c0ccf11d7bf83d153d7c06',
     user: '61c0ccf11d7bf83d153d7c06',
+    make,'Toyota',
+
     title: 'New Book',
     description: 'Book Description',
     author: 'Author',
     price: 100,
-    category: Category.FANTASY,
+    fuelType: Type.Petrol,
   };
 
   const mockUser = {
@@ -32,10 +29,10 @@ describe('VehicleController', () => {
     email: 'ghulam1@gmail.com',
   };
 
-  const mockBookService = {
-    findAll: jest.fn().mockResolvedValueOnce([mockBook]),
+  const mockVehicleService = {
+    findAll: jest.fn().mockResolvedValueOnce([mockVehicle]),
     create: jest.fn(),
-    findById: jest.fn().mockResolvedValueOnce(mockBook),
+    findById: jest.fn().mockResolvedValueOnce(mockVehicle),
     updateById: jest.fn(),
     deleteById: jest.fn().mockResolvedValueOnce({ deleted: true }),
   };
@@ -46,13 +43,13 @@ describe('VehicleController', () => {
       controllers: [VehicleController],
       providers: [
         {
-          provide: BookService,
-          useValue: mockBookService,
+          provide: VehicleService,
+          useValue: mockVehicleService,
         },
       ],
     }).compile();
 
-    bookService = module.get<BookService>(BookService);
+    vehicleService = module.get<VehicleService>(VehicleService);
     vehicleController = module.get<VehicleController>(VehicleController);
   });
 
@@ -60,72 +57,73 @@ describe('VehicleController', () => {
     expect(vehicleController).toBeDefined();
   });
 
-  describe('getAllBooks', () => {
-    it('should get all books', async () => {
-      const result = await vehicleController.getAllBooks({
-        page: '1',
+  describe('getAllVehicles', () => {
+    it('should get all vehicles', async () => {
+      const result = await vehicleController.getAllVehicles({
         keyword: 'test',
       });
 
-      expect(bookService.findAll).toHaveBeenCalled();
-      expect(result).toEqual([mockBook]);
+      expect(vehicleService.findAll).toHaveBeenCalled();
+      expect(result).toEqual([mockVehicle]);
     });
   });
 
   describe('createBook', () => {
-    it('should create a new book', async () => {
+    it('should create a new vehicle', async () => {
       const newBook = {
-        title: 'New Book',
-        description: 'Book Description',
+        title: 'New vehicle',
+        description: 'vehicle Description',
         author: 'Author',
         price: 100,
         category: Category.FANTASY,
       };
 
-      mockBookService.create = jest.fn().mockResolvedValueOnce(mockBook);
+      mockVehicleService.create = jest.fn().mockResolvedValueOnce(mockVehicle);
 
-      const result = await vehicleController.createBook(
-        newBook as CreateBookDto,
+      const result = await vehicleController.createVehicle(
+        newVehicle as CreateVehicleDto,
         mockUser as User,
       );
 
-      expect(bookService.create).toHaveBeenCalled();
-      expect(result).toEqual(mockBook);
+      expect(vehicleService.create).toHaveBeenCalled();
+      expect(result).toEqual(mockVehicle);
     });
   });
 
   describe('getBookById', () => {
-    it('should get a book by ID', async () => {
-      const result = await vehicleController.getBook(mockBook._id);
+    it('should get a vehicle by ID', async () => {
+      const result = await vehicleController.getVehicle(mockVehicle._id);
 
-      expect(bookService.findById).toHaveBeenCalled();
-      expect(result).toEqual(mockBook);
+      expect(vehicleService.findById).toHaveBeenCalled();
+      expect(result).toEqual(mockVehicle);
     });
   });
 
-  describe('updateBook', () => {
-    it('should update book by its ID', async () => {
-      const updatedBook = { ...mockBook, title: 'Updated name' };
-      const book = { title: 'Updated name' };
+  describe('updateVehicle', () => {
+    it('should update vehicle by its ID', async () => {
+      const updatedVehicle = { ...mockVehicle, title: 'Updated name' };
+      const vehicle = { title: 'Updated name' };
 
-      mockBookService.updateById = jest.fn().mockResolvedValueOnce(updatedBook);
+      mockVehicleService.updateById = jest.fn().mockResolvedValueOnce(updatedVehicle);
 
-      const result = await vehicleController.updateBook(
-        mockBook._id,
-        book as UpdateBookDto,
+      const result = await vehicleController.updateVehicle(
+        mockVehicle._id,
+        vehicle as UpdateVehicleDto,
       );
 
-      expect(bookService.updateById).toHaveBeenCalled();
-      expect(result).toEqual(updatedBook);
+      expect(vehicleService.updateById).toHaveBeenCalled();
+      expect(result).toEqual(updatedVehicle);
     });
   });
 
-  describe('deleteBook', () => {
-    it('should delete a book by ID', async () => {
-      const result = await vehicleController.deleteBook(mockBook._id);
+  describe('deleteVehicle', () => {
+    it('should delete a vehicle by ID', async () => {
+      const result = await vehicleController.deleteVehicle(mockVehicle._id);
 
-      expect(bookService.deleteById).toHaveBeenCalled();
+      expect(vehicleService.deleteById).toHaveBeenCalled();
       expect(result).toEqual({ deleted: true });
     });
   });
 });
+
+

@@ -28,17 +28,16 @@ import { FilesInterceptor } from '@nestjs/platform-express';
 export class VehicleController {
 constructor(private vehicleService: VehicleService) {}
     
-    @Get()
+  @Get()
     @Roles(Role.Admin)
     @UseGuards(AuthGuard(), RolesGuard)
     async getAllVehicles(): Promise<Vehicle[]>{
-        return this.vehicleService.findAll()
-    }
+      return this.vehicleService.findAll()
+  }
 
   @Post()
   @Roles(Role.Admin)
   @UseGuards(AuthGuard(), RolesGuard)
-  @UseGuards(AuthGuard())
   async createVehicle(
     @Body()
     vehicle: CreateVehicleDto,

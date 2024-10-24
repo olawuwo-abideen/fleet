@@ -14,8 +14,7 @@ export class CreateReportDto {
   @IsString()
   @IsNotEmpty()
   reportType: string;
-
-
+  
 }
 
 

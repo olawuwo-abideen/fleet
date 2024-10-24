@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
+import { IsNotEmpty, IsInt,isDate, IsString, IsEmpty} from 'class-validator';
+import { User } from 'src/auth/schemas/user.schema';
 
 
 export class CreateFuelDto {
@@ -9,7 +10,7 @@ export class CreateFuelDto {
 
   @IsString()
   @IsNotEmpty()
-  date: string;
+  date: Date;
 
   @IsString()
   @IsNotEmpty()
@@ -17,6 +18,14 @@ export class CreateFuelDto {
 
   @IsInt()
   @IsNotEmpty()
+  pricePerLitre: number;
+
+  @IsInt()
+  @IsNotEmpty()
   cost: number;
+
+
+  @IsEmpty({ message: 'You cannot pass user id' })
+  user: User;
 
 }

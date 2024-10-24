@@ -37,6 +37,13 @@ The following API endpoints are available:
 - BaseUrl https://localhost:3000/
 
 
+**Authentication**
+
+- **POST /auth/login**: User login.
+- **POST /auth/logout**: User logout.
+- **POST /auth/forgot-password**: User forgot password
+- **POST /auth/reset-password**: User reset password
+
 **Vehicle Management**
 
 - **GET /vehicles**: Retrieve a list of all vehicles.
@@ -118,15 +125,5 @@ The following API endpoints are available:
 - **PUT /roles/{id}**: Update details of a specific role.
 - **DELETE /roles/{id}**: Remove a role from the system.
 
-**Authentication**
 
-- **POST /auth/login**: User login.
-- **POST /auth/logout**: User logout.
-- **POST /auth/refresh-token**: Refresh authentication token.
 
-**Notifications**
-
-- **GET /notifications**: Retrieve a list of all notifications.
-- **POST /notifications**: Send a new notification.
-- **PUT /notifications/{id}**: Update a specific notification.
-- **DELETE /notifications/{id}**: Delete a specific notification.

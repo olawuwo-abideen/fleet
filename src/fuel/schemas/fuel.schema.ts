@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
- import { Document } from 'mongoose';
+ import mongoose, { Document } from 'mongoose';
+import { User } from 'src/auth/schemas/user.schema';
 
 @Schema({
   timestamps: true,
@@ -16,7 +17,14 @@ export class Fuel extends  Document{
   quantity: string;
 
   @Prop()
+  pricePerLitre:number
+
+
+  @Prop()
   cost: number;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  user: User;
 
 }
 

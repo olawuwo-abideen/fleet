@@ -17,10 +17,10 @@ export class CreateVehicleDto {
   @IsNotEmpty()
    make: string;
 
-   @ApiProperty()
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
-   vehicleModel: string;
+  vehicleModel: string;
 
    @ApiProperty()
   @IsInt()

@@ -9,7 +9,6 @@ import { IncidentModule } from './incident/incident.module';
 import { LocationModule } from './location/location.module';
 import { AnalyticsandreportModule } from './analyticsandreport/analyticsandreport.module';
 import { UserModule } from './user/user.module';
-import { NotificationModule } from './notification/notification.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -38,7 +37,6 @@ import { EmailModule } from './email/email.module';
     LocationModule, 
     AnalyticsandreportModule, 
     UserModule, 
-    NotificationModule, 
     VehicleModule, 
     AuthModule, 
     EmailModule

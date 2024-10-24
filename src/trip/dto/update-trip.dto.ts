@@ -1,26 +1,34 @@
-import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
-
+import { IsNotEmpty, IsString, IsDate} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateTripDto {
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   vehicleId: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   driverId: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   routeId: string;
 
-  @IsString()
+  @ApiProperty()
+  @IsDate()
   @IsNotEmpty()
-  startTime: string;
+  startTime: Date;
 
 
-  @IsString()
+  @ApiProperty()
+  @IsDate()
   @IsNotEmpty()
-  endTime: string;
+  endTime: Date;
 }
+
+
+
