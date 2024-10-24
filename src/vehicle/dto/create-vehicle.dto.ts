@@ -8,39 +8,48 @@ import {
 } from 'class-validator';
 import { User } from '../../auth/schemas/user.schema';
 import { Type } from '../schemas/vehicle.schema';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateVehicleDto {
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly make: string;
+   make: string;
 
+   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly vehicleModel: string;
+   vehicleModel: string;
 
+   @ApiProperty()
   @IsInt()
   @IsNotEmpty()
-  readonly year: number;
+   year: number;
 
+   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly licensePlate: number;
+   licensePlate: number;
 
+   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly vin: string;
+   vin: string;
 
+   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly status: string;
+   status: string;
 
 
+
+   @ApiProperty()
   @IsNotEmpty()
   @IsEnum(Type, { message: 'Please enter correct fuel type.' })
-  readonly fuelType: Type;
+   fuelType: Type;
 
   @IsEmpty({ message: 'You cannot pass user id' })
-  readonly user: User;
+   user: User;
 
 }
