@@ -1,15 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
- import { Document } from 'mongoose';
+import mongoose from 'mongoose';
 
 @Schema({
   timestamps: true,
 })
-export class Incident extends  Document{
+export class Incident {
   
-  @Prop()
+  @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }) 
   vehicleId: string;
   
-  @Prop()
+  @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Driver' }) 
   driverId: string;
 
   @Prop()
@@ -17,9 +17,6 @@ export class Incident extends  Document{
 
   @Prop()
   description: string;
-
-  @Prop()
-  address: string;
 
 
 }

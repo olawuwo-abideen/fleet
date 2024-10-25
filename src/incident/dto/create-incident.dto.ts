@@ -1,20 +1,25 @@
-import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString} from 'class-validator';
 
 
 export class CreateIncidentDto {
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   vehicleId: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   driverId: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  date: string;
+  date: Date;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   description: string;
