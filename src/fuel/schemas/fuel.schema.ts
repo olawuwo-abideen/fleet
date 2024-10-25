@@ -5,7 +5,7 @@ import { User } from 'src/auth/schemas/user.schema';
 @Schema({
   timestamps: true,
 })
-export class Fuel extends  Document{
+export class Fuel {
   
   @Prop()
   vehicleId: string;

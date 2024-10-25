@@ -1,20 +1,25 @@
-import { IsNotEmpty, IsInt,isDate, IsString} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsInt, IsString, IsDate} from 'class-validator';
 
 
 export class CreateMaintenanceDto {
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   vehicleId: string;
 
-  @IsString()
+  @ApiProperty()
+  @IsDate()
   @IsNotEmpty()
-  maintenanceDate: string;
+  maintenanceDate: Date;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   description: string;
 
+  @ApiProperty()
   @IsInt()
   @IsNotEmpty()
   cost: number;

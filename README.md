@@ -44,6 +44,19 @@ The following API endpoints are available:
 - **POST /auth/forgot-password**: User forgot password
 - **POST /auth/reset-password**: User reset password
 
+**User and Role Management**
+
+- **GET /users**: Retrieve a list of all users.
+- **GET /users/{id}**: Retrieve details of a specific user.
+- **POST /users**: Add a new user.
+- **PUT /users/{id}**: Update information for a specific user.
+- **DELETE /users/{id}**: Remove a user from the system.
+- **GET /roles**: Retrieve a list of all roles.
+- **POST /roles**: Add a new role.
+- **PUT /roles/{id}**: Update details of a specific role.
+- **DELETE /roles/{id}**: Remove a role from the system.
+
+
 **Vehicle Management**
 
 - **GET /vehicles**: Retrieve a list of all vehicles.
@@ -51,22 +64,6 @@ The following API endpoints are available:
 - **POST /vehicles**: Add a new vehicle to the fleet.
 - **PUT /vehicles/{id}**: Update information for a specific vehicle.
 - **DELETE /vehicles/{id}**: Remove a vehicle from the fleet.
-
-**Driver Management**
-
-- **GET /drivers**: Retrieve a list of all drivers.
-- **GET /drivers/{id}**: Retrieve details of a specific driver.
-- **POST /drivers**: Add a new driver to the fleet.
-- **PUT /drivers/{id}**: Update information for a specific driver.
-- **DELETE /drivers/{id}**: Remove a driver from the fleet.
-
-**Route Management**
-
-- **GET /routes**: Retrieve a list of all routes.
-- **GET /routes/{id}**: Retrieve details of a specific route.
-- **POST /routes**: Create a new route.
-- **PUT /routes/{id}**: Update details of a specific route.
-- **DELETE /routes/{id}**: Remove a route from the system.
 
 **Trip Management**
 
@@ -83,6 +80,15 @@ The following API endpoints are available:
 - **POST /maintenance**: Add a new maintenance record.
 - **PUT /maintenance/{id}**: Update details of a specific maintenance record.
 - **DELETE /maintenance/{id}**: Remove a maintenance record from the system.
+
+**Route Management**
+
+- **GET /routes**: Retrieve a list of all routes.
+- **GET /routes/{id}**: Retrieve details of a specific route.
+- **POST /routes**: Create a new route.
+- **PUT /routes/{id}**: Update details of a specific route.
+- **DELETE /routes/{id}**: Remove a route from the system.
+
 
 **Fuel Management**
 
@@ -113,17 +119,6 @@ The following API endpoints are available:
 - **GET /reports/fuel-consumption**: Retrieve a report on fuel consumption.
 - **GET /reports/maintenance-costs**: Retrieve a report on maintenance costs.
 
-**User and Role Management**
-
-- **GET /users**: Retrieve a list of all users.
-- **GET /users/{id}**: Retrieve details of a specific user.
-- **POST /users**: Add a new user.
-- **PUT /users/{id}**: Update information for a specific user.
-- **DELETE /users/{id}**: Remove a user from the system.
-- **GET /roles**: Retrieve a list of all roles.
-- **POST /roles**: Add a new role.
-- **PUT /roles/{id}**: Update details of a specific role.
-- **DELETE /roles/{id}**: Remove a role from the system.
 
 
 
