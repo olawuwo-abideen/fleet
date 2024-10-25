@@ -7,7 +7,6 @@ import { MaintenanceModule } from './maintenance/maintenance.module';
 import { FuelModule } from './fuel/fuel.module';
 import { IncidentModule } from './incident/incident.module';
 import { LocationModule } from './location/location.module';
-import { AnalyticsandreportModule } from './analyticsandreport/analyticsandreport.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -35,7 +34,6 @@ import { EmailModule } from './email/email.module';
     FuelModule, 
     IncidentModule, 
     LocationModule, 
-    AnalyticsandreportModule, 
     UserModule, 
     VehicleModule, 
     AuthModule, 

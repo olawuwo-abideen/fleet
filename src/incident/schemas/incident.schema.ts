@@ -1,6 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 
+export enum Type {
+  Accident = 'Accident',
+  Breakdown = 'Breakdown',
+  TrafficViolation= 'Traffic_Violation',
+  Other = 'Other'
+}
+
 @Schema({
   timestamps: true,
 })
@@ -18,6 +25,11 @@ export class Incident {
   @Prop()
   description: string;
 
+  @Prop()
+  location: string;
+
+  @Prop()
+  incidenceType: Type;
 
 }
 

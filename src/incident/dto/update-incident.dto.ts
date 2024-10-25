@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString} from 'class-validator';
-
+import { IsEnum, IsNotEmpty, IsString} from 'class-validator';
+import {Type} from '../schemas/incident.schema'
 
 export class UpdateIncidentDto {
 
@@ -20,10 +20,19 @@ export class UpdateIncidentDto {
   date: Date;
 
   @ApiProperty()
+  @IsNotEmpty()
+  @IsEnum(Type, { message: 'Please enter correct incidence type.' })
+  incidenceType: Type;
+
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   description: string;
 
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  location: string;
 }
 
   
