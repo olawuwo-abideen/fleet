@@ -1,7 +1,9 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -13,10 +15,9 @@ import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { EmailService } from 'src/email/email.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-// import { ConfigService } from '@nestjs/config';
-// import { UserService } from 'src/user/user.service';
 import { nanoid } from 'nanoid';
 import { ResetToken } from './schemas/reset-token.schema';
+import { ChangePasswordDto } from 'src/user/dto/change-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -114,6 +115,24 @@ export class AuthService {
     }
 
     user.password = await bcrypt.hash(resetPasswordDto.password, 10);
+    await user.save();
+  }
+
+  async changePassword(userId, data: ChangePasswordDto) {
+    const user = await this.UserModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found...');
+    }
+
+    //Compare the old password with the password in DB
+    const passwordMatch = await bcrypt.compare(user.password, data.currentPassword);
+    if (!passwordMatch) {
+      throw new BadRequestException('The password you entered does not match your current password.');
+    }
+
+    //Change user's password
+    const newPassword = await bcrypt.hash(data.password, 10);
+    user.password = newPassword;
     await user.save();
   }
 }

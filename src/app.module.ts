@@ -44,36 +44,3 @@ import { EmailModule } from './email/email.module';
   providers: [AppService],
 })
 export class AppModule {}
-
-
-
-// import { Module } from '@nestjs/common';
-// import { ConfigModule } from '@nestjs/config';
-// import { MongooseModule } from '@nestjs/mongoose';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-// import { AuthModule } from './auth/auth.module';
-// import { ThrottlerModule } from '@nestjs/throttler';
-// import { EmailModule } from './email/email.module';
-
-// @Module({
-//   imports: [
-//     ThrottlerModule.forRoot([
-//       {
-//         ttl: 5 * 1000,
-//         limit: 3,
-//       },
-//     ]),
-//     ConfigModule.forRoot({
-//       envFilePath: `.env`,
-//       // envFilePath: `.env.${process.env.NODE_ENV}`,
-//       isGlobal: true,
-//     }),
-//     MongooseModule.forRoot(process.env.DB_URI),
-//     AuthModule,
-//   ],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-// export class AppModule {}
-
