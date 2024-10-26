@@ -49,7 +49,7 @@ export class SignUpDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  role: string[];
+  role: string;
 
   @ApiProperty()
   @IsNotEmpty()

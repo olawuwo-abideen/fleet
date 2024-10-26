@@ -26,6 +26,9 @@ export class User extends Document {
 
   @Prop()
   phoneNumber:string
+  
+  @Prop()
+  images?: object[];
 
   
   resetToken: string;

@@ -17,7 +17,7 @@ import { EmailService } from 'src/email/email.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { nanoid } from 'nanoid';
 import { ResetToken } from './schemas/reset-token.schema';
-import { ChangePasswordDto } from 'src/user/dto/change-password.dto';
+import { ChangePasswordDto } from './dto/change-password.dto'; 
 
 @Injectable()
 export class AuthService {

@@ -6,7 +6,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from './guards/roles.guard';
-import { ChangePasswordDto } from 'src/user/dto/change-password.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 
 @Controller('auth')
