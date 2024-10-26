@@ -2,11 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TripModule } from './trip/trip.module';
-import { RouteModule } from './route/route.module';
 import { MaintenanceModule } from './maintenance/maintenance.module';
 import { FuelModule } from './fuel/fuel.module';
 import { IncidentModule } from './incident/incident.module';
-import { LocationModule } from './location/location.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -29,11 +27,9 @@ import { EmailModule } from './email/email.module';
     }),
     MongooseModule.forRoot(process.env.DB_URI),
     TripModule, 
-    RouteModule, 
     MaintenanceModule, 
     FuelModule, 
     IncidentModule, 
-    LocationModule, 
     UserModule, 
     VehicleModule, 
     AuthModule, 
