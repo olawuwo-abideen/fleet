@@ -42,7 +42,9 @@ The following API endpoints are available:
 - **POST /auth/login**: User login.
 - **POST /auth/logout**: User logout.
 - **POST /auth/forgot-password**: User forgot password
-- **POST /auth/reset-password**: User reset password
+- **PUT /auth/reset-password**: User reset password
+- **PUT /auth/change-password**: User change password
+
 
 **User and Role Management**
 
@@ -81,7 +83,7 @@ The following API endpoints are available:
 - **PUT /maintenance/{id}**: Update details of a specific maintenance record.
 - **DELETE /maintenance/{id}**: Remove a maintenance record from the system.
 
-**Route Management**
+**Route Management** 
 
 - **GET /routes**: Retrieve a list of all routes.
 - **GET /routes/{id}**: Retrieve details of a specific route.

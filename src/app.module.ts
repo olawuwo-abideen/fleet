@@ -18,7 +18,7 @@ import { EmailModule } from './email/email.module';
       {
         ttl: 5 * 1000,
         limit: 3,
-      },
+      }, 
     ]),
     ConfigModule.forRoot({
 //  envFilePath: `.env.${process.env.NODE_ENV}`,
