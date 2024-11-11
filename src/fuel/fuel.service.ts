@@ -50,9 +50,4 @@ export class FuelService {
           runValidators: true,
         });
       }
-    
-      async deleteById(id: string): Promise<{ deleted: boolean }> {
-        await this.fuelModel.findByIdAndDelete(id);
-        return { deleted: true };
-      }
 }

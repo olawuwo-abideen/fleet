@@ -64,15 +64,5 @@ export class FuelController {
     return this.fuelService.updateById(id, fuel);
   }
 
-  @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard(), RolesGuard)
-  async deleteFuel(
-    @Param('id')
-    id: string,
-  ): Promise<{ deleted: boolean }> {
-    return this.fuelService.deleteById(id);
-  }
-
 
 }
