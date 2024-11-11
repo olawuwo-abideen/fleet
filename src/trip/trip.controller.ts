@@ -58,14 +58,4 @@ export class TripController {
   ): Promise<Trip> {
     return this.tripService.updateById(id, trip);
   }
-
-  @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard(), RolesGuard)
-  async deleteTrip(
-    @Param('id')
-    id: string,
-  ): Promise<{ deleted: boolean }> {
-    return this.tripService.deleteById(id);
-  }
 }

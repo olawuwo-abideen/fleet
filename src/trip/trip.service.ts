@@ -50,9 +50,4 @@ export class TripService {
           runValidators: true,
         });
       }
-    
-      async deleteById(id: string): Promise<{ deleted: boolean }> {
-        await this.tripModel.findByIdAndDelete(id);
-        return { deleted: true };
-      }
 }
