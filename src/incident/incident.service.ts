@@ -51,11 +51,5 @@ export class IncidentService {
           runValidators: true,
         });
       }
-    
-      async deleteById(id: string): Promise<{ deleted: boolean }> {
-        await this.incidentModel.findByIdAndDelete(id);
-        return { deleted: true };
-      }
-
 
 }

@@ -62,14 +62,4 @@ export class IncidentController {
     return this.incidentService.updateById(id, incident);
   }
 
-  @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard(), RolesGuard)
-  async deleteIncident(
-    @Param('id')
-    id: string,
-  ): Promise<{ deleted: boolean }> {
-    return this.incidentService.deleteById(id);
-  }
-
 }
