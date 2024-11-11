@@ -50,10 +50,5 @@ export class MaintenanceService {
           runValidators: true,
         });
       }
-    
-      async deleteById(id: string): Promise<{ deleted: boolean }> {
-        await this.maintenanceModel.findByIdAndDelete(id);
-        return { deleted: true };
-      }
 
 }

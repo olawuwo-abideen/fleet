@@ -21,7 +21,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 @Controller('maintenance')
 export class MaintenanceController {
     
-    constructor(private maintenanceService: MaintenanceService) {}
+constructor(private maintenanceService: MaintenanceService) {}
     
     @Get()
     @Roles(Role.Admin)
@@ -61,16 +61,6 @@ export class MaintenanceController {
     maintenance: UpdateMaintenanceDto,
   ): Promise<Maintenance> {
     return this.maintenanceService.updateById(id, maintenance);
-  }
-
-  @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard(), RolesGuard)
-  async deleteMaintenance(
-    @Param('id')
-    id: string,
-  ): Promise<{ deleted: boolean }> {
-    return this.maintenanceService.deleteById(id);
   }
 
 

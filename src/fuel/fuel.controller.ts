@@ -24,7 +24,7 @@ export class FuelController {
     constructor(private fuelService: FuelService) {}
 
     @Get()
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.Driver)
     @UseGuards(AuthGuard(), RolesGuard)
     async getAllFuel(): Promise<Fuel[]>{
         return this.fuelService.findAll()
