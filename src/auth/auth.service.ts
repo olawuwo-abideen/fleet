@@ -30,49 +30,78 @@ export class AuthService {
     @InjectModel(ResetToken.name) private ResetTokenModel: Model<ResetToken>,
   ) {}
 
-  async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
-    const { firstName,lastName, email, password, role, phoneNumber } = signUpDto;
-
+  async signUp(signUpDto: SignUpDto): Promise<{ token: string; user: any }> {
+    const { firstName, lastName, email, password, role, phoneNumber } = signUpDto;
+  
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
+  
     try {
+      // Create the user in the database
       const user = await this.UserModel.create({
         firstName,
         lastName,
         email,
         password: hashedPassword,
         role,
-        phoneNumber
+        phoneNumber,
       });
-
+  
+      // Generate a JWT token
       const token = this.jwtService.sign({ id: user._id });
-
-      return { token };
+  
+      // Return the token and user data (excluding sensitive information)
+      return { 
+        token,
+        user: {
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+          phoneNumber: user.phoneNumber,
+        }
+      };
     } catch (error) {
       if (error?.code === 11000) {
         throw new ConflictException('Duplicate Email Entered');
       }
+      throw error; // Propagate other errors
     }
   }
 
-  async login(loginDto: LoginDto): Promise<{ token: string }> {
+  async login(loginDto: LoginDto): Promise<{ token: string; user: any }> {
     const { email, password } = loginDto;
-
+  
+    // Find the user by email
     const user = await this.UserModel.findOne({ email });
-
+  
     if (!user) {
       throw new BadRequestException('Invalid email or password');
     }
-
+  
+    // Compare the provided password with the stored hashed password
     const isPasswordMatched = await bcrypt.compare(password, user.password);
-
+  
     if (!isPasswordMatched) {
       throw new BadRequestException('Invalid email or password');
     }
-
-    const token = this.jwtService.sign({ _id: user._id });
-
-    return { token };
+  
+    // Generate a JWT token
+    const token = this.jwtService.sign({ id: user._id });
+  
+    // Return the token and user data (excluding sensitive information)
+    return {
+      token,
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role,
+        phoneNumber: user.phoneNumber,
+      },
+    };
   }
 
   async forgotPassword(email: string) {
