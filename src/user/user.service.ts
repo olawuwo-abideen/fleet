@@ -10,7 +10,7 @@ import { User } from '../auth/schemas/user.schema';
 import { uploadImages } from 'src/vehicle/utils/aws';
 import { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-
+import { Types } from 'mongoose';
 
 @Injectable()
 export class UserService {
@@ -60,10 +60,24 @@ async findAll(): Promise<User[]> {
   }
 
   async updateById(id: string, user: Partial<User>): Promise<User> {
-    return await this.userModel.findByIdAndUpdate(id, user, {
-      new: true,
-      runValidators: true,
-    });
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid user ID format.');
+    }
+  
+    try {
+      const updatedUser = await this.userModel.findByIdAndUpdate(id, user, {
+        new: true,
+        runValidators: true,
+      });
+  
+      if (!updatedUser) {
+        throw new NotFoundException('User not found.');
+      }
+  
+      return updatedUser;
+    } catch (error) {
+      throw new NotFoundException(`Failed to update user: ${error.message}`);
+    }
   }
 
   async deleteById(id: string): Promise<{ deleted: boolean }> {
