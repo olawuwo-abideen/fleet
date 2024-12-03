@@ -66,7 +66,7 @@ export class UserController {
 
     @Put('upload/:id')
     @UseGuards(AuthGuard())
-    @UseInterceptors(FilesInterceptor('files'))
+    @UseInterceptors(FilesInterceptor('image'))
     async uploadImages(
       @Param('id') id: string,
       @UploadedFiles(
