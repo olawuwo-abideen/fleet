@@ -60,10 +60,10 @@ export class UserController {
     async deleteUser(
       @Param('id')
       id: string,
-    ): Promise<{ deleted: boolean }> {
+    ): Promise<{ message: string }> {
       return this.userService.deleteById(id);
     }
-  
+
     @Put('upload/:id')
     @UseGuards(AuthGuard())
     @UseInterceptors(FilesInterceptor('files'))

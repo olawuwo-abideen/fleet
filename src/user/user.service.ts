@@ -80,9 +80,18 @@ async findAll(): Promise<User[]> {
     }
   }
 
-  async deleteById(id: string): Promise<{ deleted: boolean }> {
-    await this.userModel.findByIdAndDelete(id);
-    return { deleted: true };
+  async deleteById(id: string): Promise<{ message: string }> {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new BadRequestException('Invalid user ID format.');
+    }
+  
+    const deletedUser = await this.userModel.findByIdAndDelete(id);
+  
+    if (!deletedUser) {
+      throw new NotFoundException('User not found.');
+    }
+  
+    return { message: 'User deleted successfully' };
   }
 
   async uploadImages(id: string, files: Array<Express.Multer.File>) {
