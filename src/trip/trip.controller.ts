@@ -1,17 +1,16 @@
 import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    Post,
-    Put,
-    Req,
-    UseGuards
-  } from '@nestjs/common';
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { TripService } from './trip.service';
-import { CreateTripDto } from './dto/create-trip.dto';
-import { UpdateTripDto } from './dto/update-trip.dto';
+import { CreateTripDto, UpdateTripDto } from './dto/trip.dto.ts';
 import { Trip } from './schemas/trip.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/decorators/roles.decorator';
@@ -20,20 +19,20 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('trip')
 export class TripController {
+  constructor(private readonly tripService: TripService) {}
 
-    constructor(private tripService: TripService) {}
-    
   @Get()
   @UseGuards(AuthGuard(), RolesGuard)
-  async getAllTrips(): Promise<Trip[]>{
-        return this.tripService.findAll()
-    }
+  async getAllTrips(@Req() req): Promise<Trip[]> {
+    return this.tripService.findAllByUser(req.user);
+  }
+
+  
 
   @Post()
   @UseGuards(AuthGuard(), RolesGuard)
   async createTrip(
-    @Body()
-    trip: CreateTripDto,
+    @Body() trip: CreateTripDto,
     @Req() req,
   ): Promise<Trip> {
     return this.tripService.create(trip, req.user);
@@ -42,20 +41,19 @@ export class TripController {
   @Get(':id')
   @UseGuards(AuthGuard(), RolesGuard)
   async getTrip(
-    @Param('id')
-    id: string,
+    @Param('id') id: string,
+    @Req() req,
   ): Promise<Trip> {
-    return this.tripService.findById(id);
+    return this.tripService.findByIdAndUser(id, req.user);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard(), RolesGuard)
   async updateTrip(
-    @Param('id')
-    id: string,
-    @Body()
-    trip: UpdateTripDto,
+    @Param('id') id: string,
+    @Body() trip: UpdateTripDto,
+    @Req() req,
   ): Promise<Trip> {
-    return this.tripService.updateById(id, trip);
+    return this.tripService.updateByIdAndUser(id, trip, req.user);
   }
 }
