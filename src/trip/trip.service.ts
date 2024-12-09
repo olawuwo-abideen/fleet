@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Trip } from './schemas/trip.schema';
 import { User } from '../auth/schemas/user.schema';
+import { CreateTripDto } from './dto/trip.dto.ts';
 
 @Injectable()
 export class TripService {
@@ -17,32 +18,29 @@ export class TripService {
 
   // Fetch all trips for the current user
   async findAllByUser(user: User): Promise<Trip[]> {
-    return this.tripModel.find({ user: user._id });
+    return this.tripModel.find({ userId: user._id });  // Use `userId` to filter trips
   }
 
-
-
-  async create(trip: Trip, user: User): Promise<Trip> {
-    // Convert string IDs to ObjectId
+  // Create a new trip
+  async create(trip: CreateTripDto, user: User): Promise<Trip> {
     const data = {
       ...trip,
-      user: user._id,
+      userId: user._id,  // Store userId in trip data
       vehicleId: new mongoose.Types.ObjectId(trip.vehicleId),
       driverId: new mongoose.Types.ObjectId(trip.driverId),
       routeId: new mongoose.Types.ObjectId(trip.routeId),
     };
-
     return this.tripModel.create(data);
   }
 
-  // Fetch a specific trip by ID that belongs to the current user
+  // Fetch a specific trip by ID for the current user
   async findByIdAndUser(id: string, user: User): Promise<Trip> {
     const isValidId = mongoose.isValidObjectId(id);
     if (!isValidId) {
       throw new BadRequestException('Please enter a correct ID.');
     }
 
-    const trip = await this.tripModel.findOne({ _id: id, user: user._id });
+    const trip = await this.tripModel.findOne({ _id: id, userId: user._id });  // Filter by userId as well
     if (!trip) {
       throw new NotFoundException('Trip not found or you do not have access.');
     }
@@ -50,10 +48,10 @@ export class TripService {
     return trip;
   }
 
-  // Update a trip by ID if it belongs to the current user
+  // Update a trip by ID for the current user
   async updateByIdAndUser(id: string, trip: Partial<Trip>, user: User): Promise<Trip> {
     const updatedTrip = await this.tripModel.findOneAndUpdate(
-      { _id: id, user: user._id },
+      { _id: id, userId: user._id },  // Ensure userId is also used in the filter
       trip,
       {
         new: true,

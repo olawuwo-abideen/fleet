@@ -13,10 +13,7 @@ import { TripService } from './trip.service';
 import { CreateTripDto, UpdateTripDto } from './dto/trip.dto.ts';
 import { Trip } from './schemas/trip.schema';
 import { AuthGuard } from '@nestjs/passport';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { Role } from 'src/auth/enums/role.enum';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-
 @Controller('trip')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
@@ -27,15 +24,13 @@ export class TripController {
     return this.tripService.findAllByUser(req.user);
   }
 
-  
-
   @Post()
   @UseGuards(AuthGuard(), RolesGuard)
   async createTrip(
     @Body() trip: CreateTripDto,
     @Req() req,
   ): Promise<Trip> {
-    return this.tripService.create(trip, req.user);
+    return this.tripService.create(trip, req.user);  
   }
 
   @Get(':id')
@@ -44,7 +39,7 @@ export class TripController {
     @Param('id') id: string,
     @Req() req,
   ): Promise<Trip> {
-    return this.tripService.findByIdAndUser(id, req.user);
+    return this.tripService.findByIdAndUser(id, req.user);  // Ensure trip belongs to user
   }
 
   @Put(':id')
@@ -54,6 +49,6 @@ export class TripController {
     @Body() trip: UpdateTripDto,
     @Req() req,
   ): Promise<Trip> {
-    return this.tripService.updateByIdAndUser(id, trip, req.user);
+    return this.tripService.updateByIdAndUser(id, trip, req.user);  // Update the trip for user
   }
 }
