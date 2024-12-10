@@ -21,7 +21,7 @@ export class TripController {
   @Get()
   @UseGuards(AuthGuard(), RolesGuard)
   async getAllTrips(@Req() req): Promise<Trip[]> {
-    return this.tripService.findAllByUser(req.user);
+    return this.tripService.findAll(req.user);
   }
 
   @Post()
@@ -39,7 +39,7 @@ export class TripController {
     @Param('id') id: string,
     @Req() req,
   ): Promise<Trip> {
-    return this.tripService.findByIdAndUser(id, req.user);  // Ensure trip belongs to user
+    return this.tripService.findById(id, req.user);  
   }
 
   @Put(':id')
@@ -49,6 +49,6 @@ export class TripController {
     @Body() trip: UpdateTripDto,
     @Req() req,
   ): Promise<Trip> {
-    return this.tripService.updateByIdAndUser(id, trip, req.user);  // Update the trip for user
+    return this.tripService.updateById(id, trip, req.user); 
   }
 }

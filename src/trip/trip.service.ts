@@ -16,16 +16,16 @@ export class TripService {
     private tripModel: mongoose.Model<Trip>,
   ) {}
 
-  // Fetch all trips for the current user
-  async findAllByUser(user: User): Promise<Trip[]> {
-    return this.tripModel.find({ userId: user._id });  // Use `userId` to filter trips
+
+  async findAll(user: User): Promise<Trip[]> {
+    return this.tripModel.find({ userId: user._id });  
   }
 
-  // Create a new trip
+
   async create(trip: CreateTripDto, user: User): Promise<Trip> {
     const data = {
       ...trip,
-      userId: user._id,  // Store userId in trip data
+      userId: user._id, 
       vehicleId: new mongoose.Types.ObjectId(trip.vehicleId),
       driverId: new mongoose.Types.ObjectId(trip.driverId),
       routeId: new mongoose.Types.ObjectId(trip.routeId),
@@ -33,14 +33,14 @@ export class TripService {
     return this.tripModel.create(data);
   }
 
-  // Fetch a specific trip by ID for the current user
-  async findByIdAndUser(id: string, user: User): Promise<Trip> {
+
+  async findById(id: string, user: User): Promise<Trip> {
     const isValidId = mongoose.isValidObjectId(id);
     if (!isValidId) {
       throw new BadRequestException('Please enter a correct ID.');
     }
 
-    const trip = await this.tripModel.findOne({ _id: id, userId: user._id });  // Filter by userId as well
+    const trip = await this.tripModel.findOne({ _id: id, userId: user._id });
     if (!trip) {
       throw new NotFoundException('Trip not found or you do not have access.');
     }
@@ -48,10 +48,9 @@ export class TripService {
     return trip;
   }
 
-  // Update a trip by ID for the current user
-  async updateByIdAndUser(id: string, trip: Partial<Trip>, user: User): Promise<Trip> {
+  async updateById(id: string, trip: Partial<Trip>, user: User): Promise<Trip> {
     const updatedTrip = await this.tripModel.findOneAndUpdate(
-      { _id: id, userId: user._id },  // Ensure userId is also used in the filter
+      { _id: id, userId: user._id },  
       trip,
       {
         new: true,

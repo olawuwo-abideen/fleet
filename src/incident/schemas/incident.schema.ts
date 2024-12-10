@@ -12,6 +12,9 @@ export enum Type {
   timestamps: true,
 })
 export class Incident {
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  userId: mongoose.Schema.Types.ObjectId;  
   
   @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }) 
   vehicleId: string;

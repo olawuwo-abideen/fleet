@@ -6,8 +6,8 @@ import mongoose from 'mongoose';
 })
 export class Trip {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  userId: mongoose.Schema.Types.ObjectId;  // Add this field to associate trip with the user
-
+  userId: mongoose.Schema.Types.ObjectId;  
+  
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' })
   vehicleId: string;
 

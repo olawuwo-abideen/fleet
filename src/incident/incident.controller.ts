@@ -10,8 +10,7 @@ import {
     UseGuards
   } from '@nestjs/common';
 import { IncidentService } from './incident.service';
-import { CreateIncidentDto } from './dto/create-incident.dto';
-import { UpdateIncidentDto } from './dto/update-incident.dto';
+import { CreateIncidentDto, UpdateIncidentDto } from './dto/incident.dto';
 import { Incident } from './schemas/incident.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/decorators/roles.decorator';
@@ -22,15 +21,15 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 export class IncidentController {
     constructor(private incidentService: IncidentService) {}
     
+
     @Get()
-    @Roles(Role.Admin)
+    @Roles(Role.Admin, Role.Driver)
     @UseGuards(AuthGuard(), RolesGuard)
-    async getAllIncidents(): Promise<Incident[]>{
-      return this.incidentService.findAll()
-  }
+    async getAllTrips(@Req() req): Promise<Incident[]> {
+      return this.incidentService.findAll(req.user);
+    }
 
   @Post()
-  @Roles(Role.Admin)
   @UseGuards(AuthGuard(), RolesGuard)
   async createIncident(
     @Body()
@@ -41,25 +40,23 @@ export class IncidentController {
   }
 
   @Get(':id')
-  @Roles(Role.Driver, Role.Admin)
   @UseGuards(AuthGuard(), RolesGuard)
   async getIncident(
-    @Param('id')
-    id: string,
+    @Param('id') id: string,
+    @Req() req,
   ): Promise<Incident> {
-    return this.incidentService.findById(id);
+    return this.incidentService.findById(id, req.user);
   }
 
   @Put(':id')
-  @Roles(Role.Admin)
   @UseGuards(AuthGuard(), RolesGuard)
   async updateIncident(
-    @Param('id')
-    id: string,
-    @Body()
-    incident: UpdateIncidentDto,
+    @Param('id') id: string,
+    @Body() incident: UpdateIncidentDto,
+    @Req() req,
   ): Promise<Incident> {
-    return this.incidentService.updateById(id, incident);
+    return this.incidentService.updateById(id, incident, req.user);
   }
+
 
 }
