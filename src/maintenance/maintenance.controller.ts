@@ -10,8 +10,7 @@ import {
     UseGuards
   } from '@nestjs/common';
 import { MaintenanceService } from './maintenance.service';
-import { CreateMaintenanceDto } from './dto/create-maintenance.dto';
-import { UpdateMaintenanceDto } from './dto/update-maintenance.dto';
+import { CreateMaintenanceDto, UpdateMaintenanceDto } from './dto/maintenance.dto';
 import { Maintenance } from './schemas/maintenance.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/decorators/roles.decorator';
@@ -24,10 +23,9 @@ export class MaintenanceController {
 constructor(private maintenanceService: MaintenanceService) {}
     
     @Get()
-    @Roles(Role.Admin)
     @UseGuards(AuthGuard(), RolesGuard)
-    async getAllMaintenances(): Promise<Maintenance[]>{
-      return this.maintenanceService.findAll()
+    async getAllMaintenances(@Req() req): Promise<Maintenance[]>{
+      return this.maintenanceService.findAll(req.user)
   }
 
   @Post()
@@ -47,8 +45,9 @@ constructor(private maintenanceService: MaintenanceService) {}
   async getMaintenance(
     @Param('id')
     id: string,
+    @Req() req
   ): Promise<Maintenance> {
-    return this.maintenanceService.findById(id);
+    return this.maintenanceService.findById(id, req.user);
   }
 
   @Put(':id')
@@ -59,8 +58,9 @@ constructor(private maintenanceService: MaintenanceService) {}
     id: string,
     @Body()
     maintenance: UpdateMaintenanceDto,
+    @Req() req
   ): Promise<Maintenance> {
-    return this.maintenanceService.updateById(id, maintenance);
+    return this.maintenanceService.updateById(id, maintenance, req.user);
   }
 
 

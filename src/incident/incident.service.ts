@@ -47,13 +47,6 @@ throw new NotFoundException('Incident not found ');
 return incident;
 }
 
-// async updateById(id: string, incident: Incident): Promise<Incident> {
-// return await this.incidentModel.findByIdAndUpdate(id, incident, {
-// new: true,
-// runValidators: true,
-// });
-// }
-
 
  async updateById(id: string, trip: Partial<Incident>, user: User): Promise<Incident> {
     const updatedIncident = await this.incidentModel.findOneAndUpdate(
@@ -66,7 +59,7 @@ return incident;
     );
 
     if (!updatedIncident) {
-      throw new NotFoundException('Trip not found');
+      throw new NotFoundException('Incident not found');
     }
 
     return updatedIncident;

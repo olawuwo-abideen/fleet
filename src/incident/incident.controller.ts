@@ -43,7 +43,7 @@ export class IncidentController {
   @UseGuards(AuthGuard(), RolesGuard)
   async getIncident(
     @Param('id') id: string,
-    @Req() req,
+    @Req() req
   ): Promise<Incident> {
     return this.incidentService.findById(id, req.user);
   }
