@@ -54,10 +54,8 @@ constructor(private maintenanceService: MaintenanceService) {}
   @Roles(Role.Admin)
   @UseGuards(AuthGuard(), RolesGuard)
   async updateMaintenance(
-    @Param('id')
-    id: string,
-    @Body()
-    maintenance: UpdateMaintenanceDto,
+    @Param('id') id: string,
+    @Body() maintenance: UpdateMaintenanceDto,
     @Req() req
   ): Promise<Maintenance> {
     return this.maintenanceService.updateById(id, maintenance, req.user);
