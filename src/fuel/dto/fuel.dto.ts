@@ -1,5 +1,4 @@
 import { IsNotEmpty, IsInt,isDate, IsString, IsEmpty} from 'class-validator';
-import { User } from 'src/auth/schemas/user.schema';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateFuelDto {

@@ -7,9 +7,12 @@ import { User } from 'src/auth/schemas/user.schema';
 })
 export class Fuel {
   
-  @Prop()
-  vehicleId: string;
-  
+@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+userId: mongoose.Schema.Types.ObjectId;  
+
+@Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }) 
+vehicleId: string;
+
   @Prop()
   date: Date;
 
