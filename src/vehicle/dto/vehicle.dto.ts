@@ -6,7 +6,6 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-import { User } from '../../auth/schemas/user.schema';
 import { Type } from '../schemas/vehicle.schema';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -30,17 +29,13 @@ export class CreateVehicleDto {
    @ApiProperty()
   @IsString()
   @IsNotEmpty()
-   licensePlate: number;
+   licensePlate: string;
 
    @ApiProperty()
   @IsString()
   @IsNotEmpty()
    vin: string;
 
-   @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-   status: string;
 
 
 
@@ -49,7 +44,45 @@ export class CreateVehicleDto {
   @IsEnum(Type, { message: 'Please enter correct fuel type.' })
    fuelType: Type;
 
-  @IsEmpty({ message: 'You cannot pass user id' })
-   user: User;
 
 }
+
+
+
+export class UpdateVehicleDto {
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+   make: string;
+
+   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+   vehicleModel: string;
+
+   @ApiProperty()
+  @IsInt()
+  @IsNotEmpty()
+   year: number;
+
+   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+   licensePlate: string;
+
+   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+   vin: string;
+
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsEnum(Type, { message: 'Please enter correct fuel type.' })
+   fuelType: Type;
+
+
+
+}
+

@@ -14,9 +14,9 @@ export class CreateFuelDto {
   date: Date;
 
   @ApiProperty()
-  @IsString()
+  @IsInt()
   @IsNotEmpty()
-  quantity: string;
+  litres: number;
 
   @ApiProperty()
   @IsInt()

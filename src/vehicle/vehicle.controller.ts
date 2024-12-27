@@ -14,8 +14,7 @@ import {
     UseInterceptors,
   } from '@nestjs/common';
 import { VehicleService } from './vehicle.service';
-import { CreateVehicleDto } from './dto/create-vehicle.dto';
-import { UpdateVehicleDto } from './dto/update-vehicle.dto';
+import { CreateVehicleDto, UpdateVehicleDto } from './dto/vehicle.dto';
 import { Vehicle } from './schemas/vehicle.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/decorators/roles.decorator';

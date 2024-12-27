@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { VehicleController } from './vehicle.controller';
 import { VehicleService } from './vehicle.service';
-import { CreateVehicleDto } from './dto/create-vehicle.dto';
+import { CreateVehicleDto } from './dto/vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { PassportModule } from '@nestjs/passport';
 import { User } from '../auth/schemas/user.schema';

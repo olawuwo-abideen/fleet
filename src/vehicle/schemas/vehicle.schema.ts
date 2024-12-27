@@ -22,13 +22,11 @@ export class Vehicle {
   year: number;
 
   @Prop()
-  licensePlate: number;
+  licensePlate: string;
 
   @Prop()
   vin: string;
   
-  @Prop()
-  status: string;
 
   @Prop()
   fuelType: Type;
@@ -36,8 +34,6 @@ export class Vehicle {
   @Prop()
   images?: object[];
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
 
 
 }

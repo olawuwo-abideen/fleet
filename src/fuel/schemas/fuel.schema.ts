@@ -17,7 +17,7 @@ vehicleId: string;
   date: Date;
 
   @Prop()
-  quantity: string;
+  litres: number;
 
   @Prop()
   pricePerLitre:number
@@ -25,9 +25,6 @@ vehicleId: string;
 
   @Prop()
   cost: number;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: User;
 
 }
 
