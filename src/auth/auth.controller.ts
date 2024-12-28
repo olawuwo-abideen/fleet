@@ -11,44 +11,44 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+constructor(private authService: AuthService) {}
 
-  @Post('/signup')
-  signUp(@Body() signUpDto: SignUpDto): Promise<{ token: string }> {
-    return this.authService.signUp(signUpDto);
-  }
+@Post('/signup')
+signUp(@Body() signUpDto: SignUpDto): Promise<{ token: string }> {
+return this.authService.signUp(signUpDto);
+}
 
-  @Post('/login')
-  login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
-    return this.authService.login(loginDto);
-  }
+@Post('/login')
+login(@Body() loginDto: LoginDto): Promise<{ token: string }> {
+return this.authService.login(loginDto);
+}
 
-  @Post('forgot-password')
-  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
-    return this.authService.forgotPassword(forgotPasswordDto.email);
-  }
+@Post('forgot-password')
+async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+return this.authService.forgotPassword(forgotPasswordDto.email);
+}
 
-  @Put('reset-password')
-  async resetPassword(
-    @Body() resetPasswordDto: ResetPasswordDto,
-  ) {
-    return this.authService.resetPassword(
-      resetPasswordDto
-    );
-  }
+@Put('reset-password')
+async resetPassword(
+@Body() resetPasswordDto: ResetPasswordDto,
+) {
+return this.authService.resetPassword(
+resetPasswordDto
+);
+}
 
-  @Put('change-password')
-  @UseGuards(AuthGuard(), RolesGuard)
-  async changePassword(
-    @Body() payload: ChangePasswordDto,
-    @Req() req,
-  ) {
-    return this.authService.changePassword(
-      req.userId,
-      payload
+@Put('change-password')
+@UseGuards(AuthGuard(), RolesGuard)
+async changePassword(
+@Body() payload: ChangePasswordDto,
+@Req() req,
+) {
+return this.authService.changePassword(
+req.userId,
+payload
 
-    );
-  }
+);
+}
 
 }
 

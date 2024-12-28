@@ -4,35 +4,35 @@ import { User } from '../../auth/schemas/user.schema';
 
 
 export enum Type {
-  Petrol = 'Petrol',
-  Diesel = 'Diesel',
+Petrol = 'Petrol',
+Diesel = 'Diesel',
 }
 
 @Schema({
-  timestamps: true,
+timestamps: true,
 })
 export class Vehicle {
-  @Prop()
-  make: string;
-  
-  @Prop()
-  vehicleModel: string;
+@Prop()
+make: string;
 
-  @Prop()
-  year: number;
+@Prop()
+vehicleModel: string;
 
-  @Prop()
-  licensePlate: string;
+@Prop()
+year: number;
 
-  @Prop()
-  vin: string;
-  
+@Prop()
+licensePlate: string;
 
-  @Prop()
-  fuelType: Type;
+@Prop()
+vin: string;
 
-  @Prop()
-  images?: object[];
+
+@Prop()
+fuelType: Type;
+
+@Prop()
+images?: object[];
 
 
 

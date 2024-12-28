@@ -16,38 +16,38 @@ import {CacheModule} from   '@nestjs/cache-manager'
 
 
 @Module({
-  imports: [
-    ThrottlerModule.forRoot([
-      {
-        ttl: 5 * 1000,
-        limit: 3,
-      }, 
-    ]),
-    ConfigModule.forRoot({
-      envFilePath:`.env`,
-      isGlobal:true,
-    }),
-    CacheModule.registerAsync({
-      isGlobal: true,
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        ttl: configService.get('CACHE_TTL'),
-        url: configService.get('REDISURL'),
-      }),
-      inject: [ConfigService],
-    }),
-    MongooseModule.forRoot(process.env.DB_URI),
-    TripModule, 
-    MaintenanceModule, 
-    FuelModule, 
-    IncidentModule, 
-    UserModule, 
-    VehicleModule, 
-    AuthModule, 
-    EmailModule
-   
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+imports: [
+ThrottlerModule.forRoot([
+{
+ttl: 5 * 1000,
+limit: 3,
+}, 
+]),
+ConfigModule.forRoot({
+envFilePath:`.env`,
+isGlobal:true,
+}),
+CacheModule.registerAsync({
+isGlobal: true,
+imports: [ConfigModule],
+useFactory: async (configService: ConfigService) => ({
+ttl: configService.get('CACHE_TTL'),
+url: configService.get('REDISURL'),
+}),
+inject: [ConfigService],
+}),
+MongooseModule.forRoot(process.env.DB_URI),
+TripModule, 
+MaintenanceModule, 
+FuelModule, 
+IncidentModule, 
+UserModule, 
+VehicleModule, 
+AuthModule, 
+EmailModule
+
+],
+controllers: [AppController],
+providers: [AppService],
 })
 export class AppModule {}

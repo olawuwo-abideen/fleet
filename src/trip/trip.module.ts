@@ -6,11 +6,11 @@ import { TripService } from './trip.service';
 import {Trip, TripSchema} from './schemas/trip.schema'
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Trip.name, schema: TripSchema }]),
-    PassportModule.register({ defaultStrategy: 'jwt' }), 
-  ],
-  controllers: [TripController],
-  providers: [TripService],
+imports: [
+MongooseModule.forFeature([{ name: Trip.name, schema: TripSchema }]),
+PassportModule.register({ defaultStrategy: 'jwt' }), 
+],
+controllers: [TripController],
+providers: [TripService],
 })
 export class TripModule {}

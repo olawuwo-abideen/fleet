@@ -6,11 +6,11 @@ import { PassportModule } from '@nestjs/passport';
 import { Maintenance, MaintenanceSchema} from './schemas/maintenance.schema'
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Maintenance.name, schema: MaintenanceSchema }]),
-    PassportModule.register({ defaultStrategy: 'jwt' }), 
-  ],
-  controllers: [MaintenanceController],
-  providers: [MaintenanceService],
+imports: [
+MongooseModule.forFeature([{ name: Maintenance.name, schema: MaintenanceSchema }]),
+PassportModule.register({ defaultStrategy: 'jwt' }), 
+],
+controllers: [MaintenanceController],
+providers: [MaintenanceService],
 })
 export class MaintenanceModule {}

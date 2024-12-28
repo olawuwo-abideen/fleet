@@ -49,8 +49,8 @@ const updatedMaintenance = await this.maintenanceModel.findOneAndUpdate(
 { _id: id, userId: user._id },  
 maintenance,
 {
-  new: true,
-  runValidators: true,
+new: true,
+runValidators: true,
 },
 );
 
