@@ -47,7 +47,19 @@ return this.authService.changePassword(
 req.userId,
 payload
 
-);
+)
+}
+
+
+@Post('logout')
+async logout(@Body('token') token: string): Promise<{ message: string }> {
+  try {
+   
+    await this.authService.logout(token);
+    return { message: 'Successfully logged out' };
+  } catch (error) {
+    throw error; 
+  }
 }
 
 }

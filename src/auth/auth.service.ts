@@ -18,13 +18,14 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { nanoid } from 'nanoid';
 import { ResetToken } from './schemas/reset-token.schema';
 import { ChangePasswordDto } from './dto/change-password.dto'; 
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
 constructor(
 private jwtService: JwtService,
 private emailService: EmailService,
-// private readonly configService: ConfigService,
+private readonly configService: ConfigService,
 // private readonly userService: UserService, 
 @InjectModel(User.name) private UserModel: Model<User>,
 @InjectModel(ResetToken.name) private ResetTokenModel: Model<ResetToken>,
@@ -64,7 +65,7 @@ phoneNumber: user.phoneNumber,
 };
 } catch (error) {
 if (error?.code === 11000) {
-throw new ConflictException('Duplicate Email Entered');
+throw new ConflictException('Email Already Exist, Log in');
 }
 throw error; 
 }
@@ -164,4 +165,38 @@ const newPassword = await bcrypt.hash(data.password, 10);
 user.password = newPassword;
 await user.save();
 }
+
+  async logout(token: string): Promise<void> {
+    try {
+
+      const decodedToken = this.jwtService.decode(token);
+
+      if (!decodedToken) {
+        throw new BadRequestException('Invalid token');
+      }
+
+     
+      console.log(`User with ID ${decodedToken['id']} is logging out`);
+
+  
+      try {
+        this.jwtService.verify(token, {
+          secret: this.configService.get('JWT_SECRET'),
+        });
+      } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+        
+          console.log('Token expired, logging out anyway.');
+        } else {
+    
+          throw new UnauthorizedException('Invalid token or already expired.');
+        }
+      }
+    } catch (error) {
+      throw new BadRequestException(error.message || 'An error occurred during logout');
+    }
+  }
 }
+
+
+// }

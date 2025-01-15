@@ -30,6 +30,8 @@ phoneNumber:string
 @Prop()
 images?: object[];
 
+@Prop({ type: Date, default: null })
+lastLogoutTime: Date;
 
 resetToken: string;
 }

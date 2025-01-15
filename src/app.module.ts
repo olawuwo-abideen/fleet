@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TripModule } from './trip/trip.module';
 import { MaintenanceModule } from './maintenance/maintenance.module';
 import { FuelModule } from './fuel/fuel.module';
@@ -47,7 +45,7 @@ AuthModule,
 EmailModule
 
 ],
-controllers: [AppController],
-providers: [AppService],
+controllers: [],
+providers: [],
 })
 export class AppModule {}
