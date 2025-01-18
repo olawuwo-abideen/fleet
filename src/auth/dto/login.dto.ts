@@ -2,12 +2,20 @@
   import { IsEmail, IsNotEmpty, Matches, MaxLength, MinLength } from 'class-validator';
 
   export class LoginDto {
-  @ApiProperty()
+    @ApiProperty({
+      required: true,
+      description: 'Email address of the user',
+      example: 'abideenolawuwo2000@gmail.com',
+      })
   @IsNotEmpty()
   @IsEmail({}, { message: 'Please enter correct email' })
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    required: true,
+    description: 'The user password (at least 8 characters)',
+    example: 'Password123',
+    })
   @IsNotEmpty()
   @MinLength(6, { message: 'Password must be at least 6 characters long' })
   @MaxLength(20, { message: 'Password must not exceed 20 characters' })

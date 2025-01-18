@@ -11,23 +11,39 @@ import { PasswordMatch } from '../validations/password-match.validation';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SignUpDto {
-@ApiProperty()
+    @ApiProperty({
+        required: true,
+        description: 'The first name of the user',
+        example: 'Olawuwo',
+      })
 @IsNotEmpty()
 @IsString()
 firstName: string;
 
 
-@ApiProperty()
+@ApiProperty({
+    required: true,
+    description: 'The last name of the user',
+    example: 'Abideen',
+  })
 @IsNotEmpty()
 @IsString()
 lastName: string;
 
-@ApiProperty()
+@ApiProperty({
+    required: true,
+    description: 'The user email',
+    example: 'abideenolawuwo2000@gmail',
+  })
 @IsNotEmpty()
 @IsEmail({}, { message: 'Please enter correct email' })
 email: string;
 
-@ApiProperty()
+@ApiProperty({
+    required: true,
+    description: 'The user password (at least 8 characters)',
+    example: 'Password123',
+    })
 @IsNotEmpty()
 @MinLength(6, { message: 'Password must be at least 6 characters long' })
 @MaxLength(20, { message: 'Password must not exceed 20 characters' })
@@ -41,17 +57,28 @@ message:
 password: string;
 
 
-@ApiProperty()
+@ApiProperty({
+    required: true,
+    description: 'The user password (at least 8 characters)',
+    example: 'Password123',
+    })
 @IsNotEmpty({ message: 'Confirm password is required' })
 @PasswordMatch()
 confirmPassword: string;
 
 
-@ApiProperty()
+@ApiProperty({
+    description: 'The status of the user. Allowed values: Admin,  User',
+    example: 'Admin',
+  })
 @IsNotEmpty()
 role: string;
 
-@ApiProperty()
+@ApiProperty({
+    required: true,
+    description: 'The user phone number',
+    example: '+234555555555',
+  })
 @IsNotEmpty()
 @IsMobilePhone()
 phoneNumber: string;

@@ -20,12 +20,20 @@
   import { FilesInterceptor } from '@nestjs/platform-express';
   import { User } from 'src/auth/schemas/user.schema';
   import { UserService } from './user.service';
-
+  import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+  
+  @ApiTags('user')
   @Controller('user')
   export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get all users' })
+@ApiResponse({
+  status: HttpStatus.OK,
+  description:
+    'Data fetched successfully.',
+})
   @Roles(Role.Admin)
   @UseGuards(AuthGuard(), RolesGuard)
   async getAllUser(): Promise<User[]>{
@@ -33,6 +41,12 @@
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get user by id' })
+@ApiResponse({
+  status: HttpStatus.OK,
+  description:
+    'Data fetched successfully.',
+})
   @Roles(Role.Admin, Role.Driver)
   @UseGuards(AuthGuard(), RolesGuard)
   async getUser(
@@ -43,6 +57,13 @@
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update user by id' })
+  @ApiBody({ type: UpdateUserDto, description: 'User Data' })
+@ApiResponse({
+  status: HttpStatus.OK,
+  description:
+    'Data updated successfully',
+})
   @Roles(Role.Admin, Role.Driver)
   @UseGuards(AuthGuard(), RolesGuard)
   async updateUser(
@@ -55,6 +76,12 @@
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete user by id' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description:
+      'Data deleted successfully.',
+  })
   @Roles(Role.Admin)
   @UseGuards(AuthGuard(), RolesGuard)
   async deleteUser(
@@ -65,6 +92,12 @@
   }
 
   @Put('upload/:id')
+  @ApiOperation({ summary: 'Update user image' })
+@ApiResponse({
+  status: HttpStatus.OK,
+  description:
+    'Data updated successfully',
+})
   @UseGuards(AuthGuard())
   @UseInterceptors(FilesInterceptor('image'))
   async uploadImages(

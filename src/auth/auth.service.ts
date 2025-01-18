@@ -1,6 +1,7 @@
 import {
 BadRequestException,
 ConflictException,
+HttpStatus,
 Injectable,
 InternalServerErrorException,
 NotFoundException,
@@ -19,9 +20,11 @@ import { nanoid } from 'nanoid';
 import { ResetToken } from './schemas/reset-token.schema';
 import { ChangePasswordDto } from './dto/change-password.dto'; 
 import { ConfigService } from '@nestjs/config';
+import {  Response } from 'express';
 
 @Injectable()
 export class AuthService {
+logger: any;
 constructor(
 private jwtService: JwtService,
 private emailService: EmailService,
@@ -166,37 +169,23 @@ user.password = newPassword;
 await user.save();
 }
 
-  async logout(token: string): Promise<void> {
-    try {
+async logout(user: Partial<User>, res: Response) {
+  if (!user || !user.id) {
+    throw new UnauthorizedException('User identification is missing');
+  }
 
-      const decodedToken = this.jwtService.decode(token);
-
-      if (!decodedToken) {
-        throw new BadRequestException('Invalid token');
-      }
-
-     
-      console.log(`User with ID ${decodedToken['id']} is logging out`);
-
-  
-      try {
-        this.jwtService.verify(token, {
-          secret: this.configService.get('JWT_SECRET'),
-        });
-      } catch (error) {
-        if (error.name === 'TokenExpiredError') {
-        
-          console.log('Token expired, logging out anyway.');
-        } else {
-    
-          throw new UnauthorizedException('Invalid token or already expired.');
-        }
-      }
-    } catch (error) {
-      throw new BadRequestException(error.message || 'An error occurred during logout');
-    }
+  try {
+    res.clearCookie('jwt');
+    this.logger.log(`User with ID ${user.id} has logged out successfully.`);
+    return res.status(HttpStatus.OK).json({ message: 'Sign-out successful' });
+  } catch (error) {
+    this.logger.error('An error occurred during sign-out.', error);
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      message: 'An error occurred during sign-out. Please try again later.',
+    });
   }
 }
 
+  }
 
-// }
+

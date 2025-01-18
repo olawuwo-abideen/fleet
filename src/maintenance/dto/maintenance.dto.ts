@@ -4,22 +4,38 @@
 
   export class CreateMaintenanceDto {
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The vehicel id ',
+  example: '673reiojeetfeie',
+  })
   @IsString()
   @IsNotEmpty()
   vehicleId: string;
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The maintainance day',
+  example: '12/5/2025',
+  })
   @IsDate()
   @IsNotEmpty()
   maintenanceDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The maintainance description',
+  example: 'Changing of engine oil',
+  })
   @IsString()
   @IsNotEmpty()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The maintainance cost',
+  example: '50000',
+  })
   @IsInt()
   @IsNotEmpty()
   cost: number;
@@ -30,22 +46,38 @@
 
   export class UpdateMaintenanceDto {
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The vehicel id ',
+  example: '673reiojeetfeie',
+  })
   @IsString()
   @IsNotEmpty()
   vehicleId: string;
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The maintainance day',
+  example: '12/5/2025',
+  })
   @IsDate()
   @IsNotEmpty()
   maintenanceDate: Date;
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The maintainance description',
+  example: 'Changing of engine oil',
+  })
   @IsString()
   @IsNotEmpty()
   description: string;
 
-  @ApiProperty()
+  @ApiProperty({
+  required: true,
+  description: 'The maintainance cost',
+  example: '50000',
+  })
   @IsInt()
   @IsNotEmpty()
   cost: number;
