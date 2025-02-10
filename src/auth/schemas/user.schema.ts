@@ -24,11 +24,11 @@ type: [{ type: String, enum: Role }],
 
 role: Role[];
 
-@Prop()
+@Prop({ unique: [true, 'This phonenumber exist in the database'] })
 phoneNumber:string
 
 @Prop()
-images?: object[];
+images?: any[];
 
 @Prop({ type: Date, default: null })
 lastLogoutTime: Date;

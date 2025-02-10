@@ -29,6 +29,7 @@ signUp(@Body() signUpDto: SignUpDto): Promise<{ token: string }> {
 return this.authService.signUp(signUpDto);
 }
 
+
 @Post('/login')
 @ApiOperation({ summary: 'User Log-In' })
 @ApiBody({ type: LoginDto, description: 'User Log-In Data' })

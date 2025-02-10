@@ -10,7 +10,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
-import {CacheModule} from   '@nestjs/cache-manager' 
+
 
 
 @Module({
@@ -24,15 +24,6 @@ limit: 3,
 ConfigModule.forRoot({
 envFilePath:`.env`,
 isGlobal:true,
-}),
-CacheModule.registerAsync({
-isGlobal: true,
-imports: [ConfigModule],
-useFactory: async (configService: ConfigService) => ({
-ttl: configService.get('CACHE_TTL'),
-url: configService.get('REDISURL'),
-}),
-inject: [ConfigService],
 }),
 MongooseModule.forRoot(process.env.DB_URI),
 TripModule, 

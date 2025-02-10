@@ -15,8 +15,9 @@ app.use(compression());
 app.use(cookieParser());
 const config = new DocumentBuilder()
 .setTitle('Median')
-.setDescription('The Median API description')
+.setDescription('The Fleet Management API description')
 .setVersion('0.1')
+.addBearerAuth()
 .build();
 
 const document = SwaggerModule.createDocument(app, config);

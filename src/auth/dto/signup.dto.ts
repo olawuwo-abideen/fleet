@@ -9,7 +9,7 @@ MinLength,
 } from 'class-validator';
 import { PasswordMatch } from '../validations/password-match.validation';
 import { ApiProperty } from '@nestjs/swagger';
-
+import { Role } from '../enums/role.enum';
 export class SignUpDto {
     @ApiProperty({
         required: true,
@@ -68,11 +68,12 @@ confirmPassword: string;
 
 
 @ApiProperty({
+     enum: ['Admin', 'Driver'],
     description: 'The status of the user. Allowed values: Admin,  User',
     example: 'Admin',
   })
 @IsNotEmpty()
-role: string;
+role: Role;
 
 @ApiProperty({
     required: true,

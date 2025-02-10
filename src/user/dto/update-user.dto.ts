@@ -40,11 +40,21 @@ import {
     @ApiProperty({
     required: true,
     description: 'The user address',
-    example: 'Lagos',
+    example: 'No 10 Jane Doe street Ikeja, Lagos',
     })
     @IsNotEmpty()
     @IsString() 
     address: string;
+
+
+    @ApiProperty({
+      required: true,
+      type: 'string', format: 'binary' ,
+      description: 'The user image',
+      })
+      @IsNotEmpty()
+      @IsString() 
+      images: any;
   
   }
   

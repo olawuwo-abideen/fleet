@@ -14,8 +14,9 @@ import { CreateTripDto, UpdateTripDto } from './dto/trip.dto.ts';
 import { Trip } from './schemas/trip.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @ApiTags('trip')
 @Controller('trip')
 export class TripController {

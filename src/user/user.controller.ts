@@ -20,8 +20,9 @@
   import { FilesInterceptor } from '@nestjs/platform-express';
   import { User } from 'src/auth/schemas/user.schema';
   import { UserService } from './user.service';
-  import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+  import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
   
+  @ApiBearerAuth()
   @ApiTags('user')
   @Controller('user')
   export class UserController {
@@ -92,6 +93,7 @@
   }
 
   @Put('upload/:id')
+  @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Update user image' })
 @ApiResponse({
   status: HttpStatus.OK,

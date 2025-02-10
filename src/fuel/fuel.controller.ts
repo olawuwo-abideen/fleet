@@ -17,9 +17,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/enums/role.enum';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-
+@ApiBearerAuth()
 @ApiTags('fuel')
 @Controller('fuel')
 export class FuelController {
@@ -47,7 +47,6 @@ return this.fuelService.findAll(req.user)
 })
 @Roles(Role.Admin)
 @UseGuards(AuthGuard(), RolesGuard)
-@UseGuards(AuthGuard())
 async createFuel(
 @Body()
 fuel: CreateFuelDto,
