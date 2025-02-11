@@ -14,11 +14,11 @@
   } from '@nestjs/common';
   import { UpdateUserDto } from './dto/update-user.dto';
   import { AuthGuard } from '@nestjs/passport';
-  import { Roles } from 'src/auth/decorators/roles.decorator';
-  import { Role } from 'src/auth/enums/role.enum';
-  import { RolesGuard } from 'src/auth/guards/roles.guard';
+  import { Roles } from '../auth/decorators/roles.decorator';
+  import { Role } from '../auth/enums/role.enum';
+  import { RolesGuard } from '../auth/guards/roles.guard';
   import { FilesInterceptor } from '@nestjs/platform-express';
-  import { User } from 'src/auth/schemas/user.schema';
+  import { User } from '../auth/schemas/user.schema';
   import { UserService } from './user.service';
   import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
   

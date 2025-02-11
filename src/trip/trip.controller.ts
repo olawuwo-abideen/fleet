@@ -13,7 +13,7 @@ import { TripService } from './trip.service';
 import { CreateTripDto, UpdateTripDto } from './dto/trip.dto.ts';
 import { Trip } from './schemas/trip.schema';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()

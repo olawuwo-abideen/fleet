@@ -2,14 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
-import * as cors from 'cors';
-import * as cookieParser from 'cookie-parser';
-import * as compression from 'compression';
-
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+   
 async function bootstrap() {
 const app = await NestFactory.create(AppModule);
 
-app.use(cors())
+app.use(cors());
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
@@ -21,7 +21,11 @@ const config = new DocumentBuilder()
 .build();
 
 const document = SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('api', app, document);
+SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true, 
+    },
+  });
 
 await app.listen(3000);
 }

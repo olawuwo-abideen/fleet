@@ -13,9 +13,9 @@ import { MaintenanceService } from './maintenance.service';
 import { CreateMaintenanceDto, UpdateMaintenanceDto } from './dto/maintenance.dto';
 import { Maintenance } from './schemas/maintenance.schema';
 import { AuthGuard } from '@nestjs/passport';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { Role } from 'src/auth/enums/role.enum';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { Role } from '../auth/enums/role.enum';
+import { RolesGuard } from '../auth/guards/roles.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()

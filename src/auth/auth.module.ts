@@ -6,10 +6,10 @@
   import { AuthController } from './auth.controller';
   import { AuthService } from './auth.service';
   import { JwtStrategy } from './strategy/jwt.strategy';
-  import { EmailService } from 'src/email/email.service';
+  import { EmailService } from '../email/email.service';
   import { ResetToken, ResetTokenSchema } from './schemas/reset-token.schema';
   import { User, UserSchema  } from './schemas/user.schema';
-  import { UserService } from 'src/user/user.service';
+  import { UserService } from '../user/user.service';
 
   @Module({
   imports: [
