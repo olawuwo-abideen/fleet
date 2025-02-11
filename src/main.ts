@@ -26,7 +26,9 @@ SwaggerModule.setup('api', app, document, {
       persistAuthorization: true, 
     },
   });
-
+  app.getHttpAdapter().get('/', (_, res) => {
+    res.redirect('/api');
+  });
 await app.listen(3000);
 }
 bootstrap();  
