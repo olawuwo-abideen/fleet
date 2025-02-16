@@ -45,6 +45,9 @@ async function bootstrap() {
     
   });
   app.use(helmet())
+  app.getHttpAdapter().get('/', (_, res) => {
+    res.redirect('/docs');
+  });
   
   await app.listen(3000);
 }

@@ -14,7 +14,7 @@ export class SignUpDto {
     @ApiProperty({
         required: true,
         description: 'The first name of the user',
-        example: 'Olawuwo',
+        example: 'Jane',
       })
 @IsNotEmpty()
 @IsString()
@@ -24,7 +24,7 @@ firstName: string;
 @ApiProperty({
     required: true,
     description: 'The last name of the user',
-    example: 'Abideen',
+    example: 'Doe',
   })
 @IsNotEmpty()
 @IsString()
@@ -33,7 +33,7 @@ lastName: string;
 @ApiProperty({
     required: true,
     description: 'The user email',
-    example: 'abideenolawuwo2000@gmail',
+    example: 'janedoe2000@gmail',
   })
 @IsNotEmpty()
 @IsEmail({}, { message: 'Please enter correct email' })
@@ -42,7 +42,7 @@ email: string;
 @ApiProperty({
     required: true,
     description: 'The user password (at least 8 characters)',
-    example: 'Password123',
+    example: 'Password123--',
     })
 @IsNotEmpty()
 @MinLength(6, { message: 'Password must be at least 6 characters long' })
@@ -60,7 +60,7 @@ password: string;
 @ApiProperty({
     required: true,
     description: 'The user password (at least 8 characters)',
-    example: 'Password123',
+    example: 'Password123--',
     })
 @IsNotEmpty({ message: 'Confirm password is required' })
 @PasswordMatch()
@@ -70,7 +70,7 @@ confirmPassword: string;
 @ApiProperty({
      enum: ['admin', 'driver'],
     description: 'The status of the user. Allowed values: admin,  user',
-    example: 'admin',
+    example: 'driver',
   })
 @IsNotEmpty()
 role: Role;
@@ -78,7 +78,7 @@ role: Role;
 @ApiProperty({
     required: true,
     description: 'The user phone number',
-    example: '+234555555555',
+    example: '+234555555355',
   })
 @IsNotEmpty()
 @IsMobilePhone()
