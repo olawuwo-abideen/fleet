@@ -16,7 +16,6 @@ constructor(
 @InjectModel(Incident.name)
 private incidentModel:mongoose.Model<Incident>
 ){}
-  // Get all incidents
   async findAll(user: User): Promise<{ message: string; data: Incident[] }> {
     const incidents = await this.incidentModel.find({ userId: user._id }).exec();
     return {
@@ -25,7 +24,6 @@ private incidentModel:mongoose.Model<Incident>
     };
   }
 
-  // Create a new incident
   async create(
     user: User, 
     incidentDto: CreateIncidentDto
@@ -38,7 +36,7 @@ private incidentModel:mongoose.Model<Incident>
     };
   }
 
-  // Get incident by ID
+
   async findById(user: User, id: string): Promise<{ message: string; data: Incident }> {
     if (!mongoose.isValidObjectId(id)) {
       throw new BadRequestException('Invalid incident ID');
@@ -55,7 +53,6 @@ private incidentModel:mongoose.Model<Incident>
     };
   }
 
-  // Update incident by ID
   async updateById(
     user: User, 
     id: string, 
@@ -81,7 +78,7 @@ private incidentModel:mongoose.Model<Incident>
     };
   }
 
-  // Delete incident by ID
+
   async deleteById(user: User, id: string): Promise<{ message: string }> {
     if (!mongoose.isValidObjectId(id)) {
       throw new BadRequestException('Invalid incident ID');

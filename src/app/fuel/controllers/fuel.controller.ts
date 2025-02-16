@@ -1,7 +1,6 @@
 import {
 Body,
 Controller,
-Delete,
 Get,
 HttpStatus,
 Param,
@@ -18,8 +17,8 @@ import { Roles } from '../../../shared/decorators/roles.decorator';
 import { Role } from '../../auth/enums/role.enum';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CurrentUser } from 'src/shared/decorators/user.decorator';
-import { User } from 'src/app/auth/schemas/user.schema';
+import {CurrentUser} from '../../../shared/decorators/user.decorator'
+import { User } from '../../../app/auth/schemas/user.schema';
 
 @ApiBearerAuth()
 @ApiTags('Fuel')

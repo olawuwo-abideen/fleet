@@ -1,25 +1,19 @@
   import {
   Body,
   Controller,
-  Request,
-  Delete,
   Get,
   HttpStatus,
-  Param,
   Put,
-  Req,
   UseGuards,
-  ValidationPipe,
   } from '@nestjs/common';
   import { UpdateUserDto } from '../dto/update-user.dto';
   import { AuthGuard } from '@nestjs/passport';;
   import { RolesGuard } from '../../auth/guards/roles.guard';
-  import { FilesInterceptor } from '@nestjs/platform-express';
   import { User } from '../../auth/schemas/user.schema';
   import { UserService } from '../services/user.service';
-  import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+  import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDto } from '../dto/change-password.dto';
-import { CurrentUser } from 'src/shared/decorators/user.decorator';
+import { CurrentUser } from '../../../shared/decorators/user.decorator';
   
   @ApiBearerAuth()
   @ApiTags('User')

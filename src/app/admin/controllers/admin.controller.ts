@@ -6,7 +6,7 @@ HttpStatus,
 Param,
 UseGuards
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Role } from   '../../auth/enums/role.enum';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { AuthGuard } from '@nestjs/passport'

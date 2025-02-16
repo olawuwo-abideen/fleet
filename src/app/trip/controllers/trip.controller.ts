@@ -15,8 +15,8 @@ import { Trip } from '../schemas/trip.schema';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/app/auth/schemas/user.schema';
-import { CurrentUser } from 'src/shared/decorators/user.decorator';
+import { User } from '../../auth/schemas/user.schema';
+import { CurrentUser } from '../../../shared/decorators/user.decorator';
 
 @ApiBearerAuth()
 @ApiTags('Trip')

@@ -6,7 +6,6 @@ NotFoundException,
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { User } from '../../auth/schemas/user.schema';
-import { Types } from 'mongoose';
 import { ChangePasswordDto } from '../dto/change-password.dto';
 import * as bcrypt from 'bcryptjs';
 import { UpdateUserDto } from '../dto/update-user.dto';

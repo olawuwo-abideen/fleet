@@ -4,7 +4,6 @@ ConflictException,
 HttpStatus,
 Injectable,
 InternalServerErrorException,
-NotFoundException,
 UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -14,7 +13,7 @@ import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from '../dto/signup.dto';
 import { LoginDto } from '../dto/login.dto';
-import { EmailService } from 'src/shared/email/email.service';
+import { EmailService } from '../../../shared/email/email.service'
 import { ResetPasswordDto } from '../dto/reset-password.dto';
 import { nanoid } from 'nanoid';
 import { ResetToken } from '../schemas/reset-token.schema';
