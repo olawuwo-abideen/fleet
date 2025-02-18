@@ -1,9 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import helmet from 'helmet';
-import cookieParser from 'cookie-parser';
-import compression from 'compression';
+// import helmet from 'helmet';
+// import cookieParser from 'cookie-parser';
+// import compression from 'compression';
+// const compression = require('compression');
+
+// import cookieParser from 'cookie-parser';
+// import * as compression from 'compression';
+// import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,11 +20,11 @@ async function bootstrap() {
     credentials: true,
     
   });
-  app.use(compression());
-  app.use(cookieParser());
+  // app.use(compression());
+  // app.use(cookieParser());
 
   const config = new DocumentBuilder()
-    .setTitle('Median')
+    .setTitle('Fleet Management')
     .setDescription('The Fleet Management API description')
     .setVersion('0.1')
     .addBearerAuth()
@@ -44,7 +49,7 @@ async function bootstrap() {
     },
     
   });
-  app.use(helmet())
+  // app.use(helmet())
   app.getHttpAdapter().get('/', (_, res) => {
     res.redirect('/docs');
   });
