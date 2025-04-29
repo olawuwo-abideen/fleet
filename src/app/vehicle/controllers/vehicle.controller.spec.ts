@@ -1,45 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { VehicleController } from './vehicle.controller';
 import { VehicleService } from '../services/vehicle.service';
-import { CreateVehicleDto } from '../dto/vehicle.dto';
-import { UpdateVehicleDto } from './dto/update-vehicle.dto';
-import { PassportModule } from '@nestjs/passport';
-import { User } from '../../auth/schemas/user.schema';
-import {Type} from'../schemas/vehicle.schema'
+import { Role } from '../../auth/enums/role.enum';
+import { Vehicle, Type } from '../schemas/vehicle.schema';
 
 describe('VehicleController', () => {
-  let vehicleService: VehicleService;
-  let vehicleController: VehicleController;
+  let controller: VehicleController;
+  let service: VehicleService;
 
-  const mockVehicle= {
-    _id: '61c0ccf11d7bf83d153d7c06',
-    user: '61c0ccf11d7bf83d153d7c06',
-    make,'Toyota',
-
-    title: 'New Book',
-    description: 'Book Description',
-    author: 'Author',
-    price: 100,
+  const mockVehicle: Vehicle = {
+    make: 'Toyota',
+    vehicleModel: 'Corolla',
+    year: 2020,
+    licensePlate: 'ABC-1234',
+    vin: '1HGCM82633A004352',
     fuelType: Type.Petrol,
-  };
-
-  const mockUser = {
-    _id: '61c0ccf11d7bf83d153d7c06',
-    name: 'Ghulam',
-    email: 'ghulam1@gmail.com',
+    images: [],
   };
 
   const mockVehicleService = {
-    findAll: jest.fn().mockResolvedValueOnce([mockVehicle]),
+    findAll: jest.fn(),
     create: jest.fn(),
-    findById: jest.fn().mockResolvedValueOnce(mockVehicle),
+    findById: jest.fn(),
     updateById: jest.fn(),
-    deleteById: jest.fn().mockResolvedValueOnce({ deleted: true }),
+    deleteById: jest.fn(),
+    uploadImages: jest.fn(),
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
       controllers: [VehicleController],
       providers: [
         {
@@ -49,81 +38,73 @@ describe('VehicleController', () => {
       ],
     }).compile();
 
-    vehicleService = module.get<VehicleService>(VehicleService);
-    vehicleController = module.get<VehicleController>(VehicleController);
+    controller = module.get<VehicleController>(VehicleController);
+    service = module.get<VehicleService>(VehicleService);
   });
 
   it('should be defined', () => {
-    expect(vehicleController).toBeDefined();
+    expect(controller).toBeDefined();
   });
 
   describe('getAllVehicles', () => {
-    it('should get all vehicles', async () => {
-      const result = await vehicleController.getAllVehicles({
-        keyword: 'test',
-      });
+    it('should return an array of vehicles', async () => {
+      mockVehicleService.findAll.mockResolvedValue([mockVehicle]);
 
-      expect(vehicleService.findAll).toHaveBeenCalled();
+      const result = await controller.getAllVehicles();
       expect(result).toEqual([mockVehicle]);
+      expect(mockVehicleService.findAll).toHaveBeenCalled();
     });
   });
 
-  describe('createBook', () => {
-    it('should create a new vehicle', async () => {
-      const newBook = {
-        title: 'New vehicle',
-        description: 'vehicle Description',
-        author: 'Author',
-        price: 100,
-        category: Category.FANTASY,
-      };
+  describe('createVehicle', () => {
+    it('should create and return a vehicle', async () => {
+      const req = { user: { _id: 'adminId', role: Role.Admin } };
+      mockVehicleService.create.mockResolvedValue(mockVehicle);
 
-      mockVehicleService.create = jest.fn().mockResolvedValueOnce(mockVehicle);
-
-      const result = await vehicleController.createVehicle(
-        newVehicle as CreateVehicleDto,
-        mockUser as User,
-      );
-
-      expect(vehicleService.create).toHaveBeenCalled();
+      const result = await controller.createVehicle(mockVehicle, req);
       expect(result).toEqual(mockVehicle);
+      expect(mockVehicleService.create).toHaveBeenCalledWith(mockVehicle, req.user);
     });
   });
 
-  describe('getBookById', () => {
-    it('should get a vehicle by ID', async () => {
-      const result = await vehicleController.getVehicle(mockVehicle._id);
+  describe('getVehicle', () => {
+    it('should return a single vehicle by ID', async () => {
+      mockVehicleService.findById.mockResolvedValue(mockVehicle);
 
-      expect(vehicleService.findById).toHaveBeenCalled();
+      const result = await controller.getVehicle('123');
       expect(result).toEqual(mockVehicle);
+      expect(mockVehicleService.findById).toHaveBeenCalledWith('123');
     });
   });
 
   describe('updateVehicle', () => {
-    it('should update vehicle by its ID', async () => {
-      const updatedVehicle = { ...mockVehicle, title: 'Updated name' };
-      const vehicle = { title: 'Updated name' };
+    it('should update and return the vehicle', async () => {
+      mockVehicleService.updateById.mockResolvedValue(mockVehicle);
 
-      mockVehicleService.updateById = jest.fn().mockResolvedValueOnce(updatedVehicle);
-
-      const result = await vehicleController.updateVehicle(
-        mockVehicle._id,
-        vehicle as UpdateVehicleDto,
-      );
-
-      expect(vehicleService.updateById).toHaveBeenCalled();
-      expect(result).toEqual(updatedVehicle);
+      const result = await controller.updateVehicle('123', mockVehicle);
+      expect(result).toEqual(mockVehicle);
+      expect(mockVehicleService.updateById).toHaveBeenCalledWith('123', mockVehicle);
     });
   });
 
   describe('deleteVehicle', () => {
-    it('should delete a vehicle by ID', async () => {
-      const result = await vehicleController.deleteVehicle(mockVehicle._id);
+    it('should delete and return result', async () => {
+      mockVehicleService.deleteById.mockResolvedValue({ deleted: true });
 
-      expect(vehicleService.deleteById).toHaveBeenCalled();
+      const result = await controller.deleteVehicle('123');
       expect(result).toEqual({ deleted: true });
+      expect(mockVehicleService.deleteById).toHaveBeenCalledWith('123');
+    });
+  });
+
+  describe('uploadImages', () => {
+    it('should upload vehicle images', async () => {
+      const files: any = [{ originalname: 'car1.jpg' }, { originalname: 'car2.jpg' }];
+      mockVehicleService.uploadImages.mockResolvedValue({ message: 'Images uploaded' });
+
+      const result = await controller.uploadImages('123', files);
+      expect(result).toEqual({ message: 'Images uploaded' });
+      expect(mockVehicleService.uploadImages).toHaveBeenCalledWith('123', files);
     });
   });
 });
-
-

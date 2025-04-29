@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from './auth.controller';
+import { AuthService } from '../services/auth.service';
 import { AuthController } from './auth.controller';
 import { Role } from '../enums/role.enum';
 
@@ -46,10 +46,10 @@ describe('AuthController', () => {
   describe('signUp', () => {
     it('should register a new user', async () => {
       const signUpDto = {
-        firtName: 'Olawuwo',
+        firstName: 'Olawuwo',
         lastName: 'Abideen',
         email: 'abideenolawuwo@gmail.com',
-        role:Role,
+        role: Role.Driver,
         phoneNumber:"+2348109983799",
         password:"",
         confirmPassword:""

@@ -50,7 +50,6 @@ return this.adminService.findById(id);
 }
 
 
-
 @Delete('driver/:id')
 @ApiOperation({ summary: 'Delete driver by id' })
 @ApiResponse({

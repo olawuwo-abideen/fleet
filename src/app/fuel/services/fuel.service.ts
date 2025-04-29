@@ -2,7 +2,6 @@ import {
 BadRequestException,
 Injectable,
 NotFoundException,
-UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose'
@@ -25,7 +24,6 @@ async findAll(user: User): Promise<{message: string; data: Fuel[] }> {
       data: fuels,
     };
   }
-  
 
 
   async create(

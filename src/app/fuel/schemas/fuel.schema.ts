@@ -29,3 +29,6 @@ cost: number;
 }
 
 export const FuelSchema = SchemaFactory.createForClass(Fuel);
+
+
+

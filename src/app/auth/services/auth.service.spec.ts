@@ -1,120 +1,188 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { AuthService } from '../services/auth.service'; 
 import { getModelToken } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-import { AuthService } from './auth.service';
-import { User } from './schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
+import { EmailService } from '../../../shared/email/email.service';
+import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcryptjs';
-import { ConflictException, UnauthorizedException } from '@nestjs/common';
+import { User } from '../schemas/user.schema';
+import { ResetToken } from '../schemas/reset-token.schema';
+import { ConflictException, BadRequestException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
+import {Role} from '../enums/role.enum'
+
+const mockUserModel = {
+  findOne: jest.fn(),
+  create: jest.fn(),
+  findById: jest.fn(),
+};
+
+const mockResetTokenModel = {
+  create: jest.fn(),
+  findOneAndDelete: jest.fn(),
+};
+
+const mockJwtService = {
+  sign: jest.fn(),
+};
+
+const mockEmailService = {
+  sendPasswordResetEmail: jest.fn(),
+};
+
+const mockConfigService = {};
 
 describe('AuthService', () => {
-  let authService: AuthService;
-  let model: Model<User>;
-  let jwtService: JwtService;
-
-  const mockUser = {
-    _id: '61c0ccf11d7bf83d153d7c06',
-    firtName: 'Olawuwo',
-    lastName: 'Abideen',
-    email: 'abideenolawuwo@gmail.com',
-    role:Role,
-    phoneNumber:"+2348109983799"
-
-  };
-
-  let token = 'jwtToken';
-
-  const mockAuthService = {
-    create: jest.fn(),
-    findOne: jest.fn(),
-  };
+  let service: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
-        JwtService,
-        {
-          provide: getModelToken(User.name),
-          useValue: mockAuthService,
-        },
+        { provide: JwtService, useValue: mockJwtService },
+        { provide: EmailService, useValue: mockEmailService },
+        { provide: ConfigService, useValue: mockConfigService },
+        { provide: getModelToken(User.name), useValue: mockUserModel },
+        { provide: getModelToken(ResetToken.name), useValue: mockResetTokenModel },
       ],
     }).compile();
 
-    authService = module.get<AuthService>(AuthService);
-    model = module.get<Model<User>>(getModelToken(User.name));
-    jwtService = module.get<JwtService>(JwtService);
-  });
-
-  it('should be defined', () => {
-    expect(authService).toBeDefined();
+    service = module.get<AuthService>(AuthService);
+    jest.clearAllMocks();
   });
 
   describe('signUp', () => {
-    const signUpDto = {
-      name: 'Ghulam',
-      email: 'ghulam1@gmail.com',
-      password: '12345678',
-      role:[]
-    };
+    it('should create and return a user', async () => {
+      mockUserModel.findOne.mockResolvedValue(null);
+      mockUserModel.create.mockResolvedValue({
+        _id: 'user123',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane@example.com',
+        role: 'driver',
+        phoneNumber: '+1234567890',
+      });
+      mockJwtService.sign.mockReturnValue('token123');
 
-    it('should register the new user', async () => {
-      jest.spyOn(bcrypt, 'hash').mockResolvedValue('hashedPassword');
-      jest
-        .spyOn(model, 'create')
-        .mockImplementationOnce(() => Promise.resolve(mockUser));
+      const result = await service.signUp({
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane@example.com',
+        password: 'Password123!',
+        confirmPassword: 'Password123!',
+        role: Role.Driver,
+        phoneNumber: '+1234567890',
+      });
 
-      jest.spyOn(jwtService, 'sign').mockReturnValue('jwtToken');
-
-      const result = await authService.signUp(signUpDto);
-
-      expect(bcrypt.hash).toHaveBeenCalled();
-      expect(result).toEqual({ token });
+      expect(result.token).toBe('token123');
+      expect(result.user.email).toBe('jane@example.com');
     });
 
-    it('should throw duplicate email entered', async () => {
-      jest
-        .spyOn(model, 'create')
-        .mockImplementationOnce(() => Promise.reject({ code: 11000 }));
-
-      await expect(authService.signUp(signUpDto)).rejects.toThrow(
-        ConflictException,
-      );
+    it('should throw if email already exists', async () => {
+      mockUserModel.findOne.mockResolvedValue({ email: 'jane@example.com' });
+      await expect(
+        service.signUp({
+          firstName: 'Jane',
+          lastName: 'Doe',
+          email: 'jane@example.com',
+          password: 'Password123!',
+          confirmPassword: 'Password123!',
+          role: Role.Driver,
+          phoneNumber: '+1234567890',
+        }),
+      ).rejects.toThrow(ConflictException);
     });
   });
 
-  describe('logIn', () => {
-    const loginDto = {
-      email: 'abideenolawuwo@gmail.com',
-      password: 'Password12345@@',
-    };
+  describe('login', () => {
+    it('should log in successfully', async () => {
+      const passwordHash = await bcrypt.hash('Password123!', 10);
+      mockUserModel.findOne.mockReturnValue({
+        select: jest.fn().mockResolvedValue({
+          _id: 'user123',
+          firstName: 'Jane',
+          lastName: 'Doe',
+          email: 'jane@example.com',
+          password: passwordHash,
+          role: 'driver',
+          phoneNumber: '+1234567890',
+        }),
+      });
+      mockJwtService.sign.mockReturnValue('token456');
 
-    it('should login user and return the token', async () => {
-      jest.spyOn(model, 'findOne').mockResolvedValueOnce(mockUser);
+      const result = await service.login({
+        email: 'jane@example.com',
+        password: 'Password123!',
+      });
 
-      jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(true);
-      jest.spyOn(jwtService, 'sign').mockReturnValue(token);
-
-      const result = await authService.login(loginDto);
-
-      expect(result).toEqual({ token });
+      expect(result.token).toBe('token456');
     });
 
-    it('should throw invalid email error', async () => {
-      jest.spyOn(model, 'findOne').mockResolvedValueOnce(null);
-
-      expect(authService.login(loginDto)).rejects.toThrow(
-        UnauthorizedException,
-      );
+    it('should throw if email is missing', async () => {
+      await expect(service.login({ email: '', password: 'Password123!' })).rejects.toThrow(BadRequestException);
     });
 
-    it('should throw invalid password error', async () => {
-      jest.spyOn(model, 'findOne').mockResolvedValueOnce(mockUser);
-      jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(false);
+    it('should throw if credentials are invalid', async () => {
+      mockUserModel.findOne.mockReturnValue({ select: jest.fn().mockResolvedValue(null) });
+      await expect(service.login({ email: 'wrong@example.com', password: 'wrong' })).rejects.toThrow(BadRequestException);
+    });
+  });
 
-      expect(authService.login(loginDto)).rejects.toThrow(
-        UnauthorizedException,
-      );
+  describe('forgotPassword', () => {
+    it('should send email if user exists', async () => {
+      mockUserModel.findOne.mockResolvedValue({ _id: 'user123' });
+      mockResetTokenModel.create.mockResolvedValue({});
+
+      const result = await service.forgotPassword('jane@example.com');
+
+      expect(mockEmailService.sendPasswordResetEmail).toHaveBeenCalled();
+      expect(result.message).toBe('If this user exists, they will receive an email');
+    });
+  });
+
+  describe('resetPassword', () => {
+    it('should reset password successfully', async () => {
+      const user = { save: jest.fn() };
+      mockResetTokenModel.findOneAndDelete.mockResolvedValue({ userId: 'user123' });
+      mockUserModel.findById.mockResolvedValue(user);
+
+      await expect(
+        service.resetPassword({
+          resetToken: 'token',
+          password: 'Password123!',
+          confirmPassword: 'Password123!',
+        }),
+      ).resolves.toBeUndefined();
+    });
+
+    it('should throw if token is invalid', async () => {
+      mockResetTokenModel.findOneAndDelete.mockResolvedValue(null);
+      await expect(
+        service.resetPassword({
+          resetToken: 'invalid',
+          password: 'Password123!',
+          confirmPassword: 'Password123!',
+        }),
+      ).rejects.toThrow(UnauthorizedException);
+    });
+  });
+
+  describe('logout', () => {
+    it('should logout the user', async () => {
+      const res = {
+        clearCookie: jest.fn(),
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+      service.logger = { log: jest.fn(), error: jest.fn() };
+
+      const result = await service.logout({ id: 'user123' }, res as any);
+      expect(res.clearCookie).toHaveBeenCalledWith('jwt');
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ message: 'Sign-out successful' });
+    });
+
+    it('should throw if user is missing', async () => {
+      await expect(service.logout({}, {} as any)).rejects.toThrow(UnauthorizedException);
     });
   });
 });
