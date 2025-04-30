@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose'
 import { Fuel } from '../schemas/fuel.schema';
 import { User } from '../../auth/schemas/user.schema';
-import { CreateFuelDto, UpdateFuelDto } from '../dto/fuel.dto';
+import { CreateFuelDto } from '../dto/fuel.dto';
 
 @Injectable()
 export class FuelService {
