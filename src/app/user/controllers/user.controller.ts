@@ -1,77 +1,78 @@
-  import {
+import {
   Body,
   Controller,
   Get,
   HttpStatus,
   Put,
   UseGuards,
-  } from '@nestjs/common';
-  import { UpdateUserDto } from '../dto/update-user.dto';
-  import { AuthGuard } from '@nestjs/passport';;
-  import { RolesGuard } from '../../auth/guards/roles.guard';
-  import { User } from '../../auth/schemas/user.schema';
-  import { UserService } from '../services/user.service';
-  import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+} from '@nestjs/common';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from '../../auth/guards/roles.guard';
+import { User } from '../../../shared/schemas/user.schema';
+import { UserService } from '../services/user.service';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ChangePasswordDto } from '../dto/change-password.dto';
 import { CurrentUser } from '../../../shared/decorators/user.decorator';
-  
-  @ApiBearerAuth()
-  @ApiTags('User')
-  @Controller('user')
-  export class UserController {
+import { ApiResponseDto } from 'src/shared/dto/api-response';
+
+@ApiBearerAuth()
+@ApiTags('User')
+@Controller('user')
+export class UserController {
   constructor(private userService: UserService) {}
 
-
-    @Get('')
+  @Get('')
   @ApiOperation({ summary: 'Get current user profile' })
-  @ApiResponse({ 
-  status: HttpStatus.OK,
-  description:
-  'User profile retrieve successfully.',
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'User profile retrieved successfully.',
   })
-  @UseGuards(AuthGuard())
+  @UseGuards(RolesGuard)
   async getProfile(@CurrentUser() user: User) {
-  return await this.userService.profile(user);
+    const data = await this.userService.profile(user);
+    return new ApiResponseDto('User profile retrieved successfully', data);
   }
 
   @Put('')
   @ApiOperation({ summary: 'Update user profile' })
   @ApiBody({ type: UpdateUserDto, description: 'Update user profile data' })
   @ApiResponse({
-  status: HttpStatus.OK,
-  description:
-  'User profile updated successfully',
-  })
-  @UseGuards(AuthGuard ())
-  public async updateProfile(
-  @Body() payload: UpdateUserDto,
-  @CurrentUser() user: User,
-  ) {
-  return await this.userService.updateProfile(payload, user);
-  }
-
-
-
-  @Put('change-password')
-  @ApiOperation({ summary: 'User change password' })
-  @ApiBody({ type: ChangePasswordDto, description: 'Change user password' })
-  @ApiResponse({
     status: HttpStatus.OK,
-    description:
-      'User Password updated successfully',
+    description: 'User profile updated successfully',
   })
-  @UseGuards(AuthGuard(), RolesGuard)
-  async changePassword(
+  @UseGuards(AuthGuard())
+  async updateProfile(
+    @Body() payload: UpdateUserDto,
     @CurrentUser() user: User,
-  @Body() payload: ChangePasswordDto,
-
   ) {
-  return this.userService.changePassword(
-  user,
-  payload
-  
-  )
+    const data = await this.userService.updateProfile(payload, user);
+    return new ApiResponseDto('User profile updated successfully', data);
   }
 
+@Put('change-password')
+@ApiOperation({ summary: 'User change password' })
+@ApiBody({ type: ChangePasswordDto, description: 'Change user password' })
+@ApiResponse({
+  status: HttpStatus.OK,
+  description: 'User password updated successfully',
+})
+@UseGuards(AuthGuard(), RolesGuard)
+async changePassword(
+  @CurrentUser() user: User,
+  @Body() payload: ChangePasswordDto,
+) {
+  await this.userService.changePassword(user, payload);
+  return new ApiResponseDto('User password updated successfully', null);
+}
 
-  }
+
+
+
+}

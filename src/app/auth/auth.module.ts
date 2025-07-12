@@ -7,8 +7,8 @@
   import { AuthService } from '../auth/services/auth.service';
   import { JwtStrategy } from './strategy/jwt.strategy';
   import { EmailService } from '../../shared/email/email.service';
-  import { ResetToken, ResetTokenSchema } from './schemas/reset-token.schema';
-  import { User, UserSchema  } from './schemas/user.schema';
+  import { ResetToken, ResetTokenSchema } from '../../shared/schemas/reset-token.schema';
+  import { User, UserSchema  } from '../../shared/schemas/user.schema';
   import { UserService } from '../user/services/user.service';
 
   @Module({
@@ -33,7 +33,7 @@
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, EmailService, UserService],
-  exports: [JwtStrategy, PassportModule, AuthService],
+  exports: [JwtStrategy, PassportModule, AuthService, JwtModule],
   })
   export class AuthModule {}
 

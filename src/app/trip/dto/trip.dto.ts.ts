@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsString, IsDate} from 'class-validator';
+import { IsNotEmpty, IsString, IsDate, IsEnum, IsUUID} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { TripStatus } from 'src/shared/schemas/trip.schema';
 
 export class CreateTripDto {
 
@@ -8,20 +9,19 @@ required: true,
 description: 'The vehicle id',
 example: '67b08a263eed037c0bf9b75e',
 })
-@IsString()
+@IsUUID()
 @IsNotEmpty()
 vehicleId: string;
 
-
-
 @ApiProperty({
 required: true,
-description: 'The route id',
-example: '67b08a263eed037c0bf9b75q',
+description: 'The driver id',
+example: '67b08a263eed037c0bf9b75e',
 })
-@IsString()
+@IsUUID()
 @IsNotEmpty()
-routeId: string;
+driverId: string;
+
 
 @ApiProperty({
 required: true,
@@ -32,15 +32,6 @@ example: '2025-01-01T08:00:00.000Z',
 @IsNotEmpty()
 startTime: Date;
 
-
-@ApiProperty({
-required: true,
-description: 'The trip end date ',
-example: '13/5/2025',
-})
-@IsDate()
-@IsNotEmpty()
-endTime: Date;
 
 }
 
@@ -57,15 +48,15 @@ example: '67b08a263eed037c0bf9b75e',
 @IsNotEmpty()
 vehicleId: string;
 
-
 @ApiProperty({
 required: true,
-description: 'The route id',
-example: '67b08a263eed037c0bf9b75q',
+description: 'The driver id',
+example: '67b08a263eed037c0bf9b75e',
 })
 @IsString()
 @IsNotEmpty()
-routeId: string;
+driverId: string;
+
 
 @ApiProperty({
 required: true,
@@ -77,6 +68,15 @@ example: '2025-01-01T08:00:00.000Z',
 startTime: Date;
 
 
+
+
+}
+
+
+
+export class UpdateTripStatusDto {
+
+
 @ApiProperty({
 required: true,
 description: 'The trip end date ',
@@ -86,7 +86,16 @@ example: '13/5/2025',
 @IsNotEmpty()
 endTime: Date;
 
+
+@ApiProperty({
+required: true,
+description: 'The trip status ',
+example: '13/5/2025',
+})
+@IsEnum(TripStatus)
+@IsNotEmpty()
+tripStatus: TripStatus;
+
+
+
 }
-
-
-

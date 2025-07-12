@@ -3,8 +3,8 @@ import { MaintenanceController } from './maintenance.controller';
 import { MaintenanceService } from '../services/maintenance.service';
 import { CreateMaintenanceDto, UpdateMaintenanceDto } from '../dto/maintenance.dto';
 import { Role } from '../../auth/enums/role.enum';
-import { Maintenance } from '../schemas/maintenance.schema';
-import { User } from '../../../app/auth/schemas/user.schema';
+import { Maintenance } from '../../../shared/schemas/maintenance.schema';
+import { User } from '../../../shared/schemas/user.schema';
 
 const mockUser = {
   _id: 'user123',

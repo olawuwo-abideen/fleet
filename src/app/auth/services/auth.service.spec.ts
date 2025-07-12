@@ -5,8 +5,8 @@ import { JwtService } from '@nestjs/jwt';
 import { EmailService } from '../../../shared/email/email.service';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcryptjs';
-import { User } from '../schemas/user.schema';
-import { ResetToken } from '../schemas/reset-token.schema';
+import { User } from '../../../shared/schemas/user.schema';
+import { ResetToken } from '../../../shared/schemas/reset-token.schema';
 import { ConflictException, BadRequestException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 import {Role} from '../enums/role.enum'
 

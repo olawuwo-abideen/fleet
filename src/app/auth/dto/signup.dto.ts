@@ -11,39 +11,39 @@ import { PasswordMatch } from '../../../shared/validations/password-match.valida
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../enums/role.enum';
 export class SignUpDto {
-    @ApiProperty({
-        required: true,
-        description: 'The first name of the user',
-        example: 'Jane',
-      })
+@ApiProperty({
+required: true,
+description: 'The first name of the user',
+example: 'Jane',
+})
 @IsNotEmpty()
 @IsString()
 firstName: string;
 
 
 @ApiProperty({
-    required: true,
-    description: 'The last name of the user',
-    example: 'Doe',
-  })
+required: true,
+description: 'The last name of the user',
+example: 'Doe',
+})
 @IsNotEmpty()
 @IsString()
 lastName: string;
 
 @ApiProperty({
-    required: true,
-    description: 'The user email',
-    example: 'janedoe2000@gmail',
-  })
+required: true,
+description: 'The user email',
+example: 'janedoe2000@gmail.com',
+})
 @IsNotEmpty()
 @IsEmail({}, { message: 'Please enter correct email' })
 email: string;
 
 @ApiProperty({
-    required: true,
-    description: 'The user password (at least 8 characters)',
-    example: 'Password123--',
-    })
+required: true,
+description: 'The user password (at least 8 characters)',
+example: 'Password123--',
+})
 @IsNotEmpty()
 @MinLength(6, { message: 'Password must be at least 6 characters long' })
 @MaxLength(20, { message: 'Password must not exceed 20 characters' })
@@ -58,28 +58,28 @@ password: string;
 
 
 @ApiProperty({
-    required: true,
-    description: 'The user password (at least 8 characters)',
-    example: 'Password123--',
-    })
+required: true,
+description: 'The user password (at least 8 characters)',
+example: 'Password123--',
+})
 @IsNotEmpty({ message: 'Confirm password is required' })
 @PasswordMatch()
 confirmPassword: string;
 
 
 @ApiProperty({
-     enum: ['admin', 'driver'],
-    description: 'The status of the user. Allowed values: admin,  user',
-    example: 'driver',
-  })
+enum: ['driver', 'mechanic'],
+description: 'The status of the user. Allowed values: mechanic, user',
+example: 'driver',
+})
 @IsNotEmpty()
 role: Role;
 
 @ApiProperty({
-    required: true,
-    description: 'The user phone number',
-    example: '+234555555355',
-  })
+required: true,
+description: 'The user phone number',
+example: '+2348123456789'
+})
 @IsNotEmpty()
 @IsMobilePhone()
 phoneNumber: string;

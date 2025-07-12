@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { TripService } from './trip.service';
-import { Trip } from '../schemas/trip.schema';
+import { Trip } from '../../../shared/schemas/trip.schema';
 import mongoose from 'mongoose';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreateTripDto, UpdateTripDto } from '../dto/trip.dto.ts';
-import { User } from '../../auth/schemas/user.schema';
+import { User } from '../../../shared/schemas/user.schema';
 
 describe('TripService', () => {
   let service: TripService;

@@ -18,8 +18,8 @@
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   userId: mongoose.Schema.Types.ObjectId;  
 
-  @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }) 
-  vehicleId: string;
+@Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }) 
+vehicleId: mongoose.Types.ObjectId;
 
   @Prop()
   date: Date;

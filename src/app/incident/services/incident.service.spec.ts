@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { IncidentService } from './incident.service';
-import { Incident } from '../schemas/incident.schema';
+import { Incident } from '../../../shared/schemas/incident.schema';
 import { CreateIncidentDto, UpdateIncidentDto } from '../dto/incident.dto';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import * as mongoose from 'mongoose';
-import { Type } from '../schemas/incident.schema';
+import { Type } from '../../../shared/schemas/incident.schema';
 import { Role } from '../../auth/enums/role.enum';
 
 describe('IncidentService', () => {

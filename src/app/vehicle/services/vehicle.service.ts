@@ -1,74 +1,53 @@
 import {
-BadRequestException,
-Injectable,
-NotFoundException,
+  BadRequestException,
+  Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose'
-import { Vehicle } from '../schemas/vehicle.schema';
-import { User } from '../../auth/schemas/user.schema';
-import { uploadImages } from '../../../shared/utils/aws';
+import * as mongoose from 'mongoose';
+import { Vehicle } from '../../../shared/schemas/vehicle.schema';
+import { Maintenance } from '../../../shared/schemas/maintenance.schema'; 
+import { Model } from 'mongoose';
 
 @Injectable()
 export class VehicleService {
-constructor(
-@InjectModel(Vehicle.name)
-private vehicleModel:mongoose.Model<Vehicle>
-){}
+  constructor(
+    @InjectModel(Vehicle.name)
+    private readonly vehicleModel: Model<Vehicle>,
 
-async findAll(): Promise<Vehicle[]> {
-const vehicles = await this.vehicleModel.find();
-return vehicles
-}
+    @InjectModel(Maintenance.name) 
+    private readonly maintenanceModel: Model<Maintenance>,
+  ) {}
 
-async create(vehicle: Vehicle, user: User): Promise<Vehicle> {
-const data = Object.assign(vehicle, { user: user._id });
+  async findAll(): Promise<Vehicle[]> {
+    return this.vehicleModel.find().exec();
+  }
 
-const res = await this.vehicleModel.create(data);
-return res;
-}
+  async findById(id: string): Promise<Vehicle> {
+    if (!mongoose.isValidObjectId(id)) {
+      throw new BadRequestException('Invalid vehicle ID.');
+    }
 
-async findById(id: string): Promise<Vehicle> {
-const isValidId = mongoose.isValidObjectId(id);
+    const vehicle = await this.vehicleModel.findById(id);
+    if (!vehicle) {
+      throw new NotFoundException('Vehicle not found.');
+    }
 
-if (!isValidId) {
-throw new BadRequestException('Please enter correct id.');
-}
+    return vehicle;
+  }
 
-const vehicle = await this.vehicleModel.findById(id);
+  async getMaintenanceHistory(vehicleId: string): Promise<Maintenance[]> {
+    if (!mongoose.isValidObjectId(vehicleId)) {
+      throw new BadRequestException('Invalid vehicle ID.');
+    }
 
-if (!vehicle) {
-throw new NotFoundException('Vehicle not found.');
-}
+    return this.maintenanceModel
+      .find({ vehicleId: new mongoose.Types.ObjectId(vehicleId) })
+      .sort({ maintenanceDate: -1 })
+      .exec();
+  }
 
-return vehicle;
-}
-
-async updateById(id: string, vehicle: Vehicle): Promise<Vehicle> {
-return await this.vehicleModel.findByIdAndUpdate(id, vehicle, {
-new: true,
-runValidators: true,
-});
-}
-
-async deleteById(id: string): Promise<{ deleted: boolean }> {
-await this.vehicleModel.findByIdAndDelete(id);
-return { deleted: true };
-}
-
-async uploadImages(id: string, files: Array<Express.Multer.File>) {
-const vehicle = await this.vehicleModel.findById(id);
-
-if (!vehicle) {
-throw new NotFoundException('Vehicle not found.');
-}
-
-const images = await uploadImages(files);
-
-vehicle.images = images as object[];
-
-await vehicle.save();
-
-return vehicle;
-}
+  async getAvailableVehicles(): Promise<Vehicle[]> {
+    return this.vehicleModel.find({ isAvailable: true }).exec();
+  }
 }

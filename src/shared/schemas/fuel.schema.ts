@@ -11,7 +11,7 @@ export class Fuel {
 userId: mongoose.Schema.Types.ObjectId;  
 
 @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }) 
-vehicleId: string;
+vehicleId: mongoose.Types.ObjectId;
 
 @Prop()
 date: Date;

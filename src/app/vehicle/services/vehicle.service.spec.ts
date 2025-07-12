@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { VehicleService } from './vehicle.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Vehicle, Type } from '../schemas/vehicle.schema';
-import { User } from '../../auth/schemas/user.schema';
+import { Vehicle, Type } from '../../../shared/schemas/vehicle.schema';
+import { User } from '../../../shared/schemas/user.schema';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 import { uploadImages } from '../../../shared/utils/aws';

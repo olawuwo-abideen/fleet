@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { VehicleController } from './vehicle.controller';
 import { VehicleService } from '../services/vehicle.service';
 import { Role } from '../../auth/enums/role.enum';
-import { Vehicle, Type } from '../schemas/vehicle.schema';
+import { Vehicle, Type } from '../../../shared/schemas/vehicle.schema';
 
 describe('VehicleController', () => {
   let controller: VehicleController;

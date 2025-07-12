@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { User } from '../../app/auth/schemas/user.schema';
+import { User } from '../schemas/user.schema';
 
 
 interface RequestWithUser extends Request {

@@ -2,9 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { FuelController } from './fuel.controller';
 import { FuelService } from '../services/fuel.service';
 import { CreateFuelDto, UpdateFuelDto } from '../dto/fuel.dto';
-import { Fuel } from '../schemas/fuel.schema';
+import { Fuel } from '../../../shared/schemas/fuel.schema';
 import { Role } from '../../auth/enums/role.enum';
-import { User } from '../../auth/schemas/user.schema';
+import { User } from '../../../shared/schemas/user.schema';
 
 describe('FuelController', () => {
   let controller: FuelController;

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { IncidentController } from './incident.controller';
 import { IncidentService } from '../services/incident.service';
 import { CreateIncidentDto, UpdateIncidentDto } from '../dto/incident.dto';
-import { Type } from '../schemas/incident.schema';
+import { Type } from '../../../shared/schemas/incident.schema';
 import { Role } from '../../../app/auth/enums/role.enum';
 import mongoose from 'mongoose';
 

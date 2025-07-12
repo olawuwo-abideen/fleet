@@ -6,13 +6,11 @@ timestamps: true,
 })
 export class Maintenance {
 
-    _id?: string;
-
 @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
 userId: mongoose.Schema.Types.ObjectId;  
 
 @Prop( { type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle' }) 
-vehicleId: string;
+vehicleId: mongoose.Types.ObjectId;
 
 @Prop()
 maintenanceDate: Date;
@@ -26,5 +24,3 @@ cost: number;
 }
 
 export const MaintenanceSchema = SchemaFactory.createForClass(Maintenance);
-
-

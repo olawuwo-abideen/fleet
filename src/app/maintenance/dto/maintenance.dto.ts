@@ -1,5 +1,5 @@
   import { ApiProperty } from '@nestjs/swagger';
-  import { IsNotEmpty, IsInt, IsString, IsDate} from 'class-validator';
+  import { IsNotEmpty, IsInt, IsString, IsDate, IsUUID} from 'class-validator';
 
 
   export class CreateMaintenanceDto {
@@ -9,7 +9,7 @@
   description: 'The vehicel id ',
   example: '67b089dc3eed037c0bf9b758',
   })
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   vehicleId: string;
 
@@ -51,7 +51,7 @@
   description: 'The vehicel id ',
   example: '67b089dc3eed037c0bf9b758',
   })
-  @IsString()
+  @IsUUID()
   @IsNotEmpty()
   vehicleId: string;
 

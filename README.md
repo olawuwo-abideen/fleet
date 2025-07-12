@@ -24,6 +24,19 @@ Create a `.env` file with
 
 `MONGODB_URI= mongodb://localhost:27017/fleetmanagement`
 
+`DB_URI=localhost`
+
+`JWT_SECRET= secret`
+
+`JWT_EXPIRES= 1d`
+
+`MAIL_USERNAME=susie98@ethereal.email`
+
+`MAIL_PASSWORD=CeUveh762eS21xBnhF`
+
+`MAIL_HOST=smtp.ethereal.email`
+
+
 Enter the following `npm start` command to Command Line Interface to Start the app
 
 This will start the app and set it up to listen for incoming connections on port 3000. 

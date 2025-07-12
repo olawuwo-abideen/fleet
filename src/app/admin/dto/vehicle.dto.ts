@@ -4,7 +4,7 @@ IsInt,
 IsNotEmpty,
 IsString,
 } from 'class-validator';
-import { Type } from '../schemas/vehicle.schema';
+import { Type } from '../../../shared/schemas/vehicle.schema';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateVehicleDto {

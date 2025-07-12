@@ -3,7 +3,7 @@ import { UserController } from '../controllers/user.controller';
 import { UserService } from '../services/user.service';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { ChangePasswordDto } from '../dto/change-password.dto';
-import { User } from '../../auth/schemas/user.schema';
+import { User } from '../../../shared/schemas/user.schema';
 
 describe('UserController', () => {
   let controller: UserController;

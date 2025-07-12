@@ -1,6 +1,6 @@
     import { ApiProperty } from '@nestjs/swagger';
-    import { IsEnum, IsNotEmpty, IsString} from 'class-validator';
-    import {Type} from '../schemas/incident.schema'
+    import { IsDateString, IsEnum, IsNotEmpty, IsString, IsUUID} from 'class-validator';
+    import {Type} from '../../../shared/schemas/incident.schema'
 
     export class CreateIncidentDto {
 
@@ -9,7 +9,7 @@
     description: 'The vehicle id',
     example: '67b09610990d4c34298c4278',
     })
-    @IsString()
+    @IsUUID()
     @IsNotEmpty()
     vehicleId: string;
 
@@ -18,8 +18,7 @@
     description: 'The incident date ',
     example: '2025-01-01T08:00:00.000Z',
     })
-    @IsString()
-    @IsNotEmpty()
+    @IsDateString()
     date: Date;
 
     @ApiProperty({
@@ -59,7 +58,7 @@
     description: 'The vehicle id',
     example: '67b09610990d4c34298c4278',
     })
-    @IsString()
+    @IsUUID()
     @IsNotEmpty()
     vehicleId: string;
 
@@ -69,7 +68,7 @@
     description: 'The incident date ',
     example: '2025-01-01T08:00:00.000Z',
     })
-    @IsString()
+    @IsDateString()
     @IsNotEmpty()
     date: Date;
 

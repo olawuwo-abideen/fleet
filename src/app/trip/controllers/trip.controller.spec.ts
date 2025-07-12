@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TripController } from './trip.controller';
 import { TripService } from '../services/trip.service';
 import { CreateTripDto, UpdateTripDto } from '../dto/trip.dto.ts';
-import { Trip } from '../schemas/trip.schema';
-import { User } from '../../auth/schemas/user.schema';
+import { Trip } from '../../../shared/schemas/trip.schema';
+import { User } from '../../../shared/schemas/user.schema';
 import { Role } from '../../auth/enums/role.enum';
 
 const mockUser = {

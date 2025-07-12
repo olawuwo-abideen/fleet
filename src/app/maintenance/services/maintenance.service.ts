@@ -1,90 +1,81 @@
 import {
-BadRequestException,
-Injectable,
-NotFoundException,
+  BadRequestException,
+  Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose'
-import { Maintenance } from '../schemas/maintenance.schema';
-import { User } from '../../auth/schemas/user.schema';
+import * as mongoose from 'mongoose';
+import { Maintenance } from '../../../shared/schemas/maintenance.schema';
 import { CreateMaintenanceDto, UpdateMaintenanceDto } from '../dto/maintenance.dto';
-
+import { Vehicle } from 'src/shared/schemas/vehicle.schema';
 
 @Injectable()
 export class MaintenanceService {
+  constructor(
+    @InjectModel(Maintenance.name)
+    private readonly maintenanceModel: mongoose.Model<Maintenance>,
+    @InjectModel(Vehicle.name)
+    private readonly vehicleModel: mongoose.Model<Vehicle>,
+  ) {}
 
-constructor(
-@InjectModel(Maintenance.name)
-private maintenanceModel:mongoose.Model<Maintenance>
-){}
-  async findAll(user: User): Promise<{ message: string; data: Maintenance[] }> {
-    const maintenances = await this.maintenanceModel.find({ userId: user._id }).exec();
-    
-    return {
-      message: 'Maintenance records fetched successfully',
-      data: maintenances,
-    };
+  async findAll(): Promise<Maintenance[]> {
+    return await this.maintenanceModel.find().exec();
   }
 
-  async create(
-    user: User, 
-    maintenanceDto: CreateMaintenanceDto
-  ): Promise<{ message: string; data: Maintenance }> {
-    const newMaintenance = await this.maintenanceModel.create({
-      ...maintenanceDto,
-      userId: user._id,
-      vehicleId: new mongoose.Types.ObjectId(maintenanceDto.vehicleId),
-    });
-
-    return {
-      message: 'Maintenance record created successfully',
-      data: newMaintenance,
-    };
-  }
-
-  async findById(
-    user: User, 
-    id: string
-  ): Promise<{ message: string; data: Maintenance }> {
+  async findById(id: string): Promise<Maintenance> {
     if (!mongoose.isValidObjectId(id)) {
       throw new BadRequestException('Invalid maintenance ID');
     }
 
-    const maintenance = await this.maintenanceModel.findOne({ _id: id, userId: user._id });
+    const maintenance = await this.maintenanceModel.findById(id).exec();
     if (!maintenance) {
       throw new NotFoundException('Maintenance record not found');
     }
 
-    return {
-      message: 'Maintenance record fetched successfully',
-      data: maintenance,
-    };
+    return maintenance;
   }
 
-ID
-  async updateById(
-    user: User, 
-    id: string, 
-    maintenanceDto: UpdateMaintenanceDto
-  ): Promise<{ message: string; data: Maintenance }> {
+  async create(dto: CreateMaintenanceDto): Promise<Maintenance> {
+    const { vehicleId, ...rest } = dto;
+
+    if (!mongoose.isValidObjectId(vehicleId)) {
+      throw new BadRequestException('Invalid vehicle ID');
+    }
+
+    const vehicle = await this.vehicleModel.findById(vehicleId);
+    if (!vehicle) {
+      throw new NotFoundException('Vehicle not found');
+    }
+
+    return await this.maintenanceModel.create({
+      vehicleId: new mongoose.Types.ObjectId(vehicleId),
+      ...rest,
+    });
+  }
+
+  async updateById(id: string, dto: UpdateMaintenanceDto): Promise<Maintenance> {
     if (!mongoose.isValidObjectId(id)) {
       throw new BadRequestException('Invalid maintenance ID');
     }
 
-    const updatedMaintenance = await this.maintenanceModel.findOneAndUpdate(
-      { _id: id, userId: user._id },
-      maintenanceDto,
-      { new: true, runValidators: true },
-    );
+    if (!mongoose.isValidObjectId(dto.vehicleId)) {
+      throw new BadRequestException('Invalid vehicle ID');
+    }
 
-    if (!updatedMaintenance) {
+    const vehicle = await this.vehicleModel.findById(dto.vehicleId);
+    if (!vehicle) {
+      throw new NotFoundException('Vehicle not found');
+    }
+
+    const updated = await this.maintenanceModel.findByIdAndUpdate(id, dto, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updated) {
       throw new NotFoundException('Maintenance record not found');
     }
 
-    return {
-      message: 'Maintenance record updated successfully',
-      data: updatedMaintenance,
-    };
+    return updated;
   }
-
 }

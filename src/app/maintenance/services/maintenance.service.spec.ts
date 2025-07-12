@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { MaintenanceService } from './maintenance.service';
-import { Maintenance } from '../schemas/maintenance.schema';
+import { Maintenance } from '../../../shared/schemas/maintenance.schema';
 import { CreateMaintenanceDto, UpdateMaintenanceDto } from '../dto/maintenance.dto';
-import { User } from '../../auth/schemas/user.schema';
+import { User } from '../../../shared/schemas/user.schema';
 import mongoose from 'mongoose';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 

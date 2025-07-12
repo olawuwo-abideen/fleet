@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FuelService } from './fuel.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { Fuel } from '../schemas/fuel.schema';
-import { User } from '../../auth/schemas/user.schema';
+import { Fuel } from '../../../shared/schemas/fuel.schema';
+import { User } from '../../../shared/schemas/user.schema';
 import * as mongoose from 'mongoose';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 

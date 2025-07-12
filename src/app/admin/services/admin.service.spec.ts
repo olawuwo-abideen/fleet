@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdminService } from './admin.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { User } from '../../auth/schemas/user.schema';
+import { User } from '../../../shared/schemas/user.schema';
 import { Role } from '../../auth/enums/role.enum';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import * as mongoose from 'mongoose';
