@@ -50,6 +50,25 @@ The following API endpoints are available:
 - BaseUrl https://localhost:3000/
 
 
+
+**Admin Management**
+
+- **POST admin/login**: Admin login.
+- **GET  admin/users**: Get all users.
+- **GET  admin/users/{id}**: Get user by id.
+- **DELETE  admin/users/{id}**: Delete user by id.
+- **POST admin/vehicle**: Create vehicle.
+- **PUT  admin/vehicle/{id}**: Update vehicle data by id.
+- **DELETE  admin/vehicle/{id}**: Delete vehicle data by id.
+- **PUT admin/vehicle/upload/{id}**: Update vehicle image data by id.
+- **GET  admin/vehicle/stat**: Get vehicle statistics.
+- **PUT    admin/trips/analytics**: Get trip analytics.
+- **GET admin/maintenance/analytics**: Get maintenance analytics.
+- **GET  admin/analytics/costs/:id**: Get vehicle cost analytics.
+- **GET    admin/staff/count**: Get total number of staff.
+- **GET admin/staff/status/:id**: Get maintenance analytics.
+- **PATCH admin/staff/activate/:id**: Activate staff account.
+
 **Authentication**
 
 - **POST /auth/login**: User login.
@@ -59,26 +78,20 @@ The following API endpoints are available:
 - **PUT /auth/change-password**: User change password
 
 
-**User and Role Management**
+**User Endpoint**
 
-- **GET /users**: Retrieve a list of all users.
-- **GET /users/{id}**: Retrieve details of a specific user.
-- **POST /users**: Add a new user.
-- **PUT /users/{id}**: Update information for a specific user.
-- **DELETE /users/{id}**: Remove a user from the system.
-- **GET /roles**: Retrieve a list of all roles.
-- **POST /roles**: Add a new role.
-- **PUT /roles/{id}**: Update details of a specific role.
-- **DELETE /roles/{id}**: Remove a role from the system.
+- **GET /user/**: Retrieve the currently authenticated user’s profile.
+- **POST user/change-password**: User change password.
+- **PUT /user/**: Update user profile.
+
 
 
 **Vehicle Management**
 
 - **GET /vehicles**: Retrieve a list of all vehicles.
 - **GET /vehicles/{id}**: Retrieve details of a specific vehicle.
-- **POST /vehicles**: Add a new vehicle to the fleet.
-- **PUT /vehicles/{id}**: Update information for a specific vehicle.
-- **DELETE /vehicles/{id}**: Remove a vehicle from the fleet.
+- **PUT /vehicles/maintenance/{id}**: Get vehicle maintenance history.
+- **DELETE /vehicles/available**: Get all available vehicles.
 
 **Trip Management**
 
@@ -87,6 +100,7 @@ The following API endpoints are available:
 - **POST /trips**: Start a new trip.
 - **PUT /trips/{id}**: Update details of a specific trip.
 - **DELETE /trips/{id}**: Cancel a trip.
+- **GET /trips/ongoing**: Get all ongoing trips.
 
 **Maintenance Management**
 
@@ -96,13 +110,6 @@ The following API endpoints are available:
 - **PUT /maintenance/{id}**: Update details of a specific maintenance record.
 - **DELETE /maintenance/{id}**: Remove a maintenance record from the system.
 
-**Route Management** 
-
-- **GET /routes**: Retrieve a list of all routes.
-- **GET /routes/{id}**: Retrieve details of a specific route.
-- **POST /routes**: Create a new route.
-- **PUT /routes/{id}**: Update details of a specific route.
-- **DELETE /routes/{id}**: Remove a route from the system.
 
 
 **Fuel Management**
@@ -121,11 +128,7 @@ The following API endpoints are available:
 - **PUT /incidents/{id}**: Update details of a specific incident.
 - **DELETE /incidents/{id}**: Remove an incident from the system.
 
-**Location Tracking**
 
-- **GET /locations**: Retrieve a list of all location updates.
-- **GET /locations/{vehicleId}**: Retrieve the current location of a specific vehicle.
-- **POST /locations**: Add a new location update.
 
 **Analytics and Reports**
 

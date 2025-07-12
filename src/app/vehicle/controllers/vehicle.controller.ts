@@ -41,7 +41,7 @@ export class VehicleController {
     return new ApiResponseDto(`Vehicle with ID ${id} retrieved successfully`, vehicle);
   }
 
-  @Get(':id/maintenance')
+  @Get('maintenance/:id')
   @ApiOperation({ summary: 'Get vehicle maintenance history' })
   async getMaintenanceHistory(@Param('id') id: string) {
     const maintenance = await this.vehicleService.getMaintenanceHistory(id);

@@ -77,7 +77,7 @@ null,
 
 
 @ApiBearerAuth()
-@Post()
+@Post('vehicle')
 @ApiOperation({ summary: 'Create vehicle' })
 async createVehicle(@Body() vehicle: CreateVehicleDto) {
 return new ApiResponseDto(
@@ -90,7 +90,7 @@ await this.adminService.createVehicle(vehicle),
 @Put(':id')
 @ApiOperation({ summary: 'Update vehicle data by id' })
 async updateVehicle(
-@Param('id') id: string,
+@Param('vehicle/id') id: string,
 @Body() vehicle: UpdateVehicleDto,
 ) {
 return new ApiResponseDto(
@@ -110,7 +110,7 @@ await this.adminService.deleteVehicle(id),
 }
 
 @ApiBearerAuth()
-@Put('upload/:id')
+@Put('vehicle/upload/:id')
 @ApiOperation({ summary: 'Update vehicle image data by id' })
 @ApiConsumes('multipart/form-data')
 @ApiBody({
@@ -145,7 +145,7 @@ await this.adminService.uploadImages(id, files),
 }
 
 @ApiBearerAuth()
-@Get('vehicles')
+@Get('vehicle/stat')
 @ApiOperation({ summary: 'Get vehicle statistics' })
 async getVehicleStats() {
 return new ApiResponseDto(
@@ -155,7 +155,7 @@ await this.adminService.getVehicleStats(),
 }
 
 @ApiBearerAuth()
-@Get('trips')
+@Get('trips/analytics')
 @ApiOperation({ summary: 'Get trip analytics' })
 async getTripAnalytics() {
 return new ApiResponseDto(
@@ -165,7 +165,7 @@ await this.adminService.getTripAnalytics(),
 }
 
 @ApiBearerAuth()
-@Get('maintenance')
+@Get('maintenance/analytics')
 @ApiOperation({ summary: 'Get maintenance analytics' })
 async getMaintenanceAnalytics() {
 return new ApiResponseDto(
@@ -175,7 +175,7 @@ await this.adminService.getMaintenanceAnalytics(),
 }
 
 @ApiBearerAuth()
-@Get('costs/:id')
+@Get('analytics/costs/:id')
 @ApiOperation({ summary: 'Get vehicle cost analytics' })
 async getCostAnalytics(@Param('id') vehicleId: string) {
 return new ApiResponseDto(
