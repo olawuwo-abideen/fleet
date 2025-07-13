@@ -20,7 +20,7 @@ ApiBearerAuth,
 ApiOperation,
 ApiTags,
 } from '@nestjs/swagger';
-import { ApiResponseDto } from 'src/shared/dto/api-response';
+import { ApiResponseDto } from '../../../shared/dto/api-response';
 
 @ApiBearerAuth()
 @ApiTags('Fuel')

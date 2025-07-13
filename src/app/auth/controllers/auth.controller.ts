@@ -19,8 +19,8 @@ import { ForgotPasswordDto } from '../dto/forgot-password.dto';
 import { ResetPasswordDto } from '../dto/reset-password.dto';
 import { User } from '../../../shared/schemas/user.schema';
 import { Response } from 'express';
-import { Public } from 'src/shared/decorators/public.decorator';
-import { ApiResponseDto } from 'src/shared/dto/api-response';
+import { Public } from '../../../shared/decorators/public.decorator';
+import { ApiResponseDto } from '../../../shared/dto/api-response';
 
 @ApiTags('Auth')
 @Controller('auth')

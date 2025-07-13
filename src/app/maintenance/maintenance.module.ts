@@ -4,7 +4,7 @@ import { MaintenanceService } from '../maintenance/services/maintenance.service'
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { Maintenance, MaintenanceSchema} from '../../shared/schemas/maintenance.schema'
-import { Vehicle, VehicleSchema } from 'src/shared/schemas/vehicle.schema';
+import { Vehicle, VehicleSchema } from '../../shared/schemas/vehicle.schema';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../user/user.module';
 

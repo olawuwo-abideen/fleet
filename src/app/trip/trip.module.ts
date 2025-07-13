@@ -4,8 +4,8 @@ import { PassportModule } from '@nestjs/passport';
 import { TripController } from './controllers/trip.controller';
 import { TripService } from './services/trip.service';
 import {Trip, TripSchema} from '../../shared/schemas/trip.schema'
-import { Vehicle, VehicleSchema } from 'src/shared/schemas/vehicle.schema';
-import { User, UserSchema } from 'src/shared/schemas/user.schema';
+import { Vehicle, VehicleSchema } from '../../shared/schemas/vehicle.schema';
+import { User, UserSchema } from '../../shared/schemas/user.schema';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../user/user.module';
 

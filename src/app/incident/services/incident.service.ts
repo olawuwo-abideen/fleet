@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Incident } from '../../../shared/schemas/incident.schema';
 import { CreateIncidentDto, UpdateIncidentDto } from '../dto/incident.dto';
-import { Vehicle } from 'src/shared/schemas/vehicle.schema';
+import { Vehicle } from '../../../shared/schemas/vehicle.schema';
 
 @Injectable()
 export class IncidentService {

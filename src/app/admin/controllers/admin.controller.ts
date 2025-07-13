@@ -23,9 +23,9 @@ ApiTags,
 import { AdminService } from '../services/admin.service';
 import { CreateVehicleDto, UpdateVehicleDto } from '../dto/vehicle.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { Public } from 'src/shared/decorators/public.decorator';
+import { Public } from '../../../shared/decorators/public.decorator';
 import { AdminLoginDto } from '../dto/admin.dto';
-import { ApiResponseDto } from 'src/shared/dto/api-response';
+import { ApiResponseDto } from '../../../shared/dto/api-response';
 import { AdminAuthGuard } from '../guard/adminguard';
 
 @UseGuards(AdminAuthGuard)

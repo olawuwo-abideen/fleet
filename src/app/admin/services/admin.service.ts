@@ -9,18 +9,18 @@ import * as mongoose from 'mongoose';
 import { User } from '../../../shared/schemas/user.schema';
 import { Types } from 'mongoose';
 import { Role } from '../../auth/enums/role.enum';
-import { Vehicle } from 'src/shared/schemas/vehicle.schema';
-import { uploadImages } from 'src/shared/utils/aws';
+import { Vehicle } from '../../../shared/schemas/vehicle.schema';
+import { uploadImages } from '../../../shared/utils/aws';
 import { CreateVehicleDto, UpdateVehicleDto } from '../dto/vehicle.dto';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { Admin } from 'src/shared/schemas/admin.schema';
+import { Admin } from '../../../shared/schemas/admin.schema';
 import { AdminLoginDto } from '../dto/admin.dto';
 import { FilterQuery } from 'mongoose';
-import { Trip } from 'src/shared/schemas/trip.schema';
-import { Fuel } from 'src/shared/schemas/fuel.schema';
-import { Maintenance } from 'src/shared/schemas/maintenance.schema';
+import { Trip } from '../../../shared/schemas/trip.schema';
+import { Fuel } from '../../../shared/schemas/fuel.schema';
+import { Maintenance } from '../../../shared/schemas/maintenance.schema';
 
 @Injectable()
 export class AdminService {

@@ -19,9 +19,9 @@ import {
 } from '@nestjs/swagger';
 import { User } from '../../../shared/schemas/user.schema';
 import { CurrentUser } from '../../../shared/decorators/user.decorator';
-import { Roles } from 'src/shared/decorators/roles.decorator';
-import { Role } from 'src/app/auth/enums/role.enum';
-import { ApiResponseDto } from 'src/shared/dto/api-response';
+import { Roles } from '../../../shared/decorators/roles.decorator';
+import { Role } from '../../../app/auth/enums/role.enum';
+import { ApiResponseDto } from '../../../shared/dto/api-response';
 
 @ApiBearerAuth()
 @ApiTags('Trip')

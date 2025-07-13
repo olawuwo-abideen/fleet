@@ -8,7 +8,7 @@ import * as mongoose from 'mongoose';
 import { Trip, TripStatus } from '../../../shared/schemas/trip.schema';
 import { User } from '../../../shared/schemas/user.schema';
 import { CreateTripDto, UpdateTripDto } from '../dto/trip.dto.ts';
-import { Vehicle } from 'src/shared/schemas/vehicle.schema';
+import { Vehicle } from '../../../shared/schemas/vehicle.schema';
 import { Model } from 'mongoose';
 
 @Injectable()

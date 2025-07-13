@@ -4,7 +4,7 @@ import { IncidentService } from './services/incident.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { Incident, IncidentSchema } from '../../shared/schemas/incident.schema';
-import { Vehicle, VehicleSchema } from 'src/shared/schemas/vehicle.schema';
+import { Vehicle, VehicleSchema } from '../../shared/schemas/vehicle.schema';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../user/user.module';
 

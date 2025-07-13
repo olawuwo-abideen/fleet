@@ -18,7 +18,7 @@ import {
 
 import { IS_PUBLIC_KEY } from '../../../shared/decorators/public.decorator';
 import { AdminService } from '../services/admin.service';
-import { Admin } from 'src/shared/schemas/admin.schema';
+import { Admin } from '../../../shared/schemas/admin.schema';
 
 @Injectable()
 export class AdminAuthGuard implements CanActivate {

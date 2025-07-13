@@ -20,7 +20,7 @@ ApiTags,
 } from '@nestjs/swagger';
 import { ChangePasswordDto } from '../dto/change-password.dto';
 import { CurrentUser } from '../../../shared/decorators/user.decorator';
-import { ApiResponseDto } from 'src/shared/dto/api-response';
+import { ApiResponseDto } from '../../../shared/dto/api-response';
 
 @ApiBearerAuth()
 @ApiTags('User')

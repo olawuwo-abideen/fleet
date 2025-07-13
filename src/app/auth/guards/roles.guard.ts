@@ -13,7 +13,7 @@ import { Types } from 'mongoose';
 
 import { IS_PUBLIC_KEY } from '../../../shared/decorators/public.decorator';
 import { ROLES_KEY } from '../../../shared/decorators/roles.decorator';
-import { User } from 'src/shared/schemas/user.schema';
+import { User } from '../../../shared/schemas/user.schema';
 import { Role } from '../../auth/enums/role.enum';
 import { UserService } from '../../user/services/user.service';
 

@@ -4,7 +4,7 @@ import { FuelService } from './services/fuel.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { Fuel, FuelSchema } from '../../shared/schemas/fuel.schema';
-import { Vehicle, VehicleSchema } from 'src/shared/schemas/vehicle.schema';
+import { Vehicle, VehicleSchema } from '../../shared/schemas/vehicle.schema';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../user/user.module';
 

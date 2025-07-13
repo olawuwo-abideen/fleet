@@ -23,7 +23,7 @@ credentials: true,
 
 });
 // app.use(compression());
-app.use(cookieParser());
+// app.use(cookieParser());
 
 const config = new DocumentBuilder()
 .setTitle('Fleet Management')
@@ -51,7 +51,7 @@ persistAuthorization: true,
 },
 
 });
-app.use(helmet())
+// app.use(helmet())
 app.getHttpAdapter().get('/', (_, res) => {
 res.redirect('/docs');
 });

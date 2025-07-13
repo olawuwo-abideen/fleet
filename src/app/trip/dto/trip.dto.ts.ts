@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsDate, IsEnum, IsUUID} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { TripStatus } from 'src/shared/schemas/trip.schema';
+import { TripStatus } from '../../../shared/schemas/trip.schema';
 
 export class CreateTripDto {
 

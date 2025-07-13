@@ -4,12 +4,12 @@ import { AdminService } from './services/admin.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
 import { User, UserSchema } from '../../shared/schemas/user.schema';
-import { Vehicle, VehicleSchema } from 'src/shared/schemas/vehicle.schema';
-import { Trip, TripSchema } from 'src/shared/schemas/trip.schema';
-import { Maintenance, MaintenanceSchema } from 'src/shared/schemas/maintenance.schema';
-import { Fuel, FuelSchema } from 'src/shared/schemas/fuel.schema';
+import { Vehicle, VehicleSchema } from '../../shared/schemas/vehicle.schema';
+import { Trip, TripSchema } from '../../shared/schemas/trip.schema';
+import { Maintenance, MaintenanceSchema } from '../../shared/schemas/maintenance.schema';
+import { Fuel, FuelSchema } from '../../shared/schemas/fuel.schema';
 import { AuthModule } from '../auth/auth.module';
-import { Admin, AdminSchema } from 'src/shared/schemas/admin.schema';
+import { Admin, AdminSchema } from '../../shared/schemas/admin.schema';
 import { AdminAuthGuard } from './guard/adminguard';
 import { JwtAdminStrategy } from './strategy/admin-strategy';
 
