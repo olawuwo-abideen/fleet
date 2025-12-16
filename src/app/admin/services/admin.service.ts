@@ -63,7 +63,7 @@ throw new UnauthorizedException('Email or password is incorrect');
 const token = this.jwtService.sign({ id: admin._id },
 { secret: this.configService.get('JWT_ADMIN_SECRET') },
 );
-return { token, admin: { id: admin._id, email: admin.email } };
+return { token };
 }
 
 async getUsers(): Promise<User[]> {
@@ -97,13 +97,19 @@ await this.vehicleModel.findByIdAndDelete(id);
 return true;
 }
 
-async uploadImages(id: string, files: Array<Express.Multer.File>): Promise<Vehicle> {
-const vehicle = await this.vehicleModel.findById(id);
-if (!vehicle) throw new NotFoundException('Vehicle not found');
-vehicle.images = await uploadImages(files) as object[];
-await vehicle.save();
-return vehicle;
+async uploadImages(
+  id: string,
+  files: Express.Multer.File[],
+): Promise<Vehicle> {
+  const vehicle = await this.vehicleModel.findById(id);
+  if (!vehicle) throw new NotFoundException('Vehicle not found');
+
+  vehicle.images = await uploadImages(files); 
+  await vehicle.save();
+
+  return vehicle;
 }
+
 
 async getVehicleStats() {
 const totalVehicles = await this.vehicleModel.countDocuments();

@@ -26,8 +26,8 @@ export class Vehicle extends Document {
   @Prop()
   fuelType: Type;
 
-  @Prop()
-  images?: object[];
+@Prop({ type: [String] })
+images?: string[];
 
   @Prop({ type: { lat: Number, lng: Number }, default: null })
   location?: { lat: number; lng: number };

@@ -1,36 +1,26 @@
 import { S3 } from 'aws-sdk';
 
-export async function uploadImages(files: Array<Express.Multer.File>) {
-return new Promise((resolve, reject) => {
-try {
-const s3 = new S3({
-accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-secretAccessKey: process.env.AWS_SECRET_KEY,
-});
+export async function uploadImages(
+  files: Express.Multer.File[],
+): Promise<string[]> {
+  const s3 = new S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
+    region: process.env.AWS_REGION,
+  });
 
-const images = [];
+  return Promise.all(
+    files.map(async (file) => {
+      const filename = `${Date.now()}-${file.originalname}`;
 
-files.forEach(async (file) => {
-const filename = file.originalname;
+      const upload = await s3.upload({
+        Bucket: process.env.AWS_S3_BUCKET_NAME!,
+        Key: `vehicle/${filename}`,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+      }).promise();
 
-const params = {
-Bucket: `${process.env.AWS_S3_BUCKET_NAME}/vehicle`,
-Key: filename,
-Body: file.buffer,
-};
-
-const uploadResponse = await s3.upload(params).promise();
-
-images.push({
-Bucket: uploadResponse.Bucket,
-Key: uploadResponse.Key,
-Location: uploadResponse.Location,
-});
-
-if (images?.length === files.length) resolve(images);
-});
-} catch (error) {
-reject(error);
-}
-});
+      return upload.Location; 
+    }),
+  );
 }
