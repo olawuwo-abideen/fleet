@@ -3,10 +3,10 @@ import { AppModule } from './app/app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './shared/exception/http-exception';
 import { HttpResponseInterceptor } from './shared/interceptor/http-response-interceptor';
-import helmet from 'helmet';
-import cookieParser from 'cookie-parser';
-// import * as compression from 'compression'; 
 import { rateLimit } from 'express-rate-limit'
+import helmet from 'helmet';
+// import * as compression from 'compression'; 
+
 
 async function bootstrap() {
 const app = await NestFactory.create(AppModule);
@@ -33,8 +33,8 @@ methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 credentials: true,
 
 });
+app.setGlobalPrefix('api');
 // app.use(compression());
-// app.use(cookieParser());
 
 const config = new DocumentBuilder()
 .setTitle('Fleet Management')
@@ -45,7 +45,7 @@ const config = new DocumentBuilder()
 
 const document = SwaggerModule.createDocument(app, config);
 
-SwaggerModule.setup("docs", app, document, {
+SwaggerModule.setup("api/docs", app, document, {
 customSiteTitle: "Api Docs",
 customfavIcon: "https://avatars.githubusercontent.com/u/6936373?s=200&v=4",
 customJs: [
@@ -63,9 +63,10 @@ persistAuthorization: true,
 
 });
 // app.use(helmet())
-app.getHttpAdapter().get('/', (_, res) => {
-res.redirect('/docs');
+app.getHttpAdapter().get('/api', (_, res) => {
+  res.redirect('/api/docs');
 });
+
 
 await app.listen(4000);
 }

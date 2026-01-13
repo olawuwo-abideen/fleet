@@ -21,7 +21,7 @@ ApiOperation,
 ApiTags,
 } from '@nestjs/swagger';
 import { AdminService } from '../services/admin.service';
-import { CreateVehicleDto, UpdateVehicleDto } from '../dto/vehicle.dto';
+import { CreateVehicleDto, CreateVehicleWithImagesDto, UpdateVehicleDto, UpdateVehicleWithImagesDto } from '../dto/vehicle.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { Public } from '../../../shared/decorators/public.decorator';
 import { AdminLoginDto } from '../dto/admin.dto';
@@ -76,31 +76,37 @@ null,
 }
 
 
+
 @ApiBearerAuth()
+@ApiConsumes('multipart/form-data')
+@ApiBody({ type: CreateVehicleWithImagesDto })
+@UseInterceptors(FilesInterceptor('images'))
 @Post('vehicle')
 @ApiOperation({ summary: 'Create vehicle' })
-async createVehicle(@Body() vehicle: CreateVehicleDto) {
-return new ApiResponseDto(
-'Vehicle created successfully',
-await this.adminService.createVehicle(vehicle),
-);
+async createVehicle(
+@Body() dto: CreateVehicleDto,
+@UploadedFiles() files: Express.Multer.File[],
+) {
+return this.adminService.createVehicle(dto, files);
 }
 
 @ApiBearerAuth()
-@Put(':id')
+@ApiConsumes('multipart/form-data')
+@ApiBody({ type: UpdateVehicleWithImagesDto })
+@UseInterceptors(FilesInterceptor('images'))
+@Put('vehicle/:id')
 @ApiOperation({ summary: 'Update vehicle data by id' })
 async updateVehicle(
-@Param('vehicle/id') id: string,
-@Body() vehicle: UpdateVehicleDto,
+@Param('id') id: string,
+@Body() dto: UpdateVehicleDto,
+@UploadedFiles() files: Express.Multer.File[],
 ) {
-return new ApiResponseDto(
-`Vehicle with ID ${id} updated successfully`,
-await this.adminService.updateVehicle(id, vehicle),
-);
+return this.adminService.updateVehicle(id, dto, files);
 }
 
+
 @ApiBearerAuth()
-@Delete(':id')
+@Delete('vehicle/:id')
 @ApiOperation({ summary: 'Delete vehicle data by id' })
 async deleteVehicle(@Param('id') id: string) {
 return new ApiResponseDto(
@@ -205,9 +211,6 @@ return new ApiResponseDto(
 { accountActivation: isActive },
 );
 }
-
-
-
 
 
 @ApiBearerAuth()

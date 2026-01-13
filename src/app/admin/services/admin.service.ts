@@ -84,13 +84,45 @@ if (!deletedUser) throw new NotFoundException('User not found');
 return true;
 }
 
-async createVehicle(vehicle: CreateVehicleDto): Promise<Vehicle> {
-return this.vehicleModel.create(vehicle);
+
+async createVehicle(
+  vehicle: CreateVehicleDto,
+  images?: Express.Multer.File[],
+): Promise<Vehicle> {
+  const createdVehicle = await this.vehicleModel.create(vehicle);
+
+  if (images?.length) {
+    createdVehicle.images = await uploadImages(images);
+    await createdVehicle.save();
+  }
+
+  return createdVehicle;
 }
 
-async updateVehicle(id: string, vehicle: UpdateVehicleDto): Promise<Vehicle> {
-return this.vehicleModel.findByIdAndUpdate(id, vehicle, { new: true, runValidators: true });
+
+async updateVehicle(
+  id: string,
+  vehicle: UpdateVehicleDto,
+  images?: Express.Multer.File[],
+): Promise<Vehicle> {
+  const existingVehicle = await this.vehicleModel.findById(id);
+  if (!existingVehicle) {
+    throw new NotFoundException('Vehicle not found');
+  }
+
+  // Upload new images
+  if (images?.length) {
+    const uploaded = await uploadImages(images);
+    existingVehicle.images.push(...uploaded);
+  }
+
+  // Update vehicle fields
+  Object.assign(existingVehicle, vehicle);
+
+  await existingVehicle.save();
+  return existingVehicle;
 }
+
 
 async deleteVehicle(id: string): Promise<boolean> {
 await this.vehicleModel.findByIdAndDelete(id);

@@ -54,9 +54,6 @@ example: '55191518910182t6289w',
 @IsNotEmpty()
 vin: string;
 
-
-
-
 @ApiProperty({
 required: true,
 enum:Type,
@@ -119,9 +116,6 @@ example: '55191518910182t6289w',
 @IsNotEmpty()
 vin: string;
 
-
-
-
 @ApiProperty({
 required: true,
 enum:Type,
@@ -135,3 +129,25 @@ fuelType: Type;
 
 }
 
+export class CreateVehicleWithImagesDto extends CreateVehicleDto {
+  @ApiProperty({
+  type: 'string',
+  format: 'binary',
+  required: false,
+  description: 'Upload vehicle image',
+})
+images?: any;
+
+}
+
+
+export class UpdateVehicleWithImagesDto extends UpdateVehicleDto {
+
+  @ApiProperty({
+  type: 'string',
+  format: 'binary',
+  required: false,
+  description: 'Upload vehicle image',
+})
+images?: any;
+}
