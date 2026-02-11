@@ -11,10 +11,14 @@ import { VehicleModule } from './vehicle/vehicle.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from '../shared/email/email.module';
 import { AdminModule } from './admin/admin.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from 'src/shared/interceptor/logging.interceptor';
 
          
 @Module({
 imports: [
+PrometheusModule.register(),
 ThrottlerModule.forRoot([
 {
 ttl: 5 * 1000,
@@ -38,6 +42,11 @@ EmailModule,
 
 ],
 controllers: [],
-providers: [],
+providers: [
+        {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+],
 })
 export class AppModule {}

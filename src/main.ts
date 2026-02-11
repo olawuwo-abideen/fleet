@@ -5,6 +5,7 @@ import { HttpExceptionFilter } from './shared/exception/http-exception';
 import { HttpResponseInterceptor } from './shared/interceptor/http-response-interceptor';
 import { rateLimit } from 'express-rate-limit'
 import helmet from 'helmet';
+import { RequestMethod } from '@nestjs/common';
 // import * as compression from 'compression'; 
 
 
@@ -33,7 +34,7 @@ methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 credentials: true,
 
 });
-app.setGlobalPrefix('api');
+
 // app.use(compression());
 
 const config = new DocumentBuilder()
@@ -43,9 +44,15 @@ const config = new DocumentBuilder()
 .addBearerAuth()
 .build();
 
+//   app.setGlobalPrefix('api', {
+//     exclude: [
+//       { path: 'metrics', method: RequestMethod.GET },
+//     ],
+//   });
+
 const document = SwaggerModule.createDocument(app, config);
 
-SwaggerModule.setup("api/docs", app, document, {
+SwaggerModule.setup("docs", app, document, {
 customSiteTitle: "Api Docs",
 customfavIcon: "https://avatars.githubusercontent.com/u/6936373?s=200&v=4",
 customJs: [
@@ -63,12 +70,12 @@ persistAuthorization: true,
 
 });
 // app.use(helmet())
-app.getHttpAdapter().get('/api', (_, res) => {
-  res.redirect('/api/docs');
-});
+// app.getHttpAdapter().get('/api', (_, res) => {
+//   res.redirect('/api/docs');
+// });
 
 
-await app.listen(4000);
+await app.listen(5000);
 }
 
 bootstrap();

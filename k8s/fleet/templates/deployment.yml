@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fleetmanagement
+  name: fleetmanagement
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fleetmanagement
+  template:
+    metadata:
+      labels:
+        app: fleetmanagement
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: /metrics
+        prometheus.io/port: '5000'
+    spec:
+      containers:
+      - image: oladevops247/fleetmanagement
+        name: fleetmanagement
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        envFrom:
+            - secretRef:
+                name: fleet-secrets 
